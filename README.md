@@ -4,6 +4,19 @@ Rhythm is a local macOS application in the menu bar.
 It provides work periods, pause reminders, resume notes, and a daily history summary.
 All product timers use real elapsed time.
 
+## Screenshots
+
+| Wave | Pause |
+| --- | --- |
+| <img src="docs/screenshots/wave.png" alt="Active wave with elapsed time, a color gradient, and the Pause button" width="400"> | <img src="docs/screenshots/pause.png" alt="Pause with the Continue button and resume note field" width="400"> |
+
+<details>
+<summary>Settings and chimes</summary>
+
+<img src="docs/screenshots/settings.png" alt="Settings with reminder intervals, optional chimes, and volume control" width="400">
+
+</details>
+
 ## Local Development
 
 Clone the repository before you open Xcode.
