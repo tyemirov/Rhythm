@@ -128,6 +128,30 @@ Format: `- [ ] [B042] (P1) {I007} Title`
   - Apple accessibility guidance: https://developer.apple.com/design/human-interface-guidelines/accessibility
   - Related issue: I001 covers the broader application integration suite.
 
+- [ ] [I004] (P1) {I001} Prepare Rhythm for Mac App Store submission
+  Goal:
+  Prepare a sandboxed application, repeatable release preparation, and complete submission materials.
+
+  Requirements:
+  - Configure the permanent application identity, App Sandbox, entitlements, and store signing.
+  - Preserve local notes, history, and preferences through an explicit one-time import decision.
+  - Verify all application services inside the sandbox and retain manual Focus behavior.
+  - Audit required-reason APIs and add applicable privacy manifest declarations.
+  - Prepare privacy and support content, store metadata, screenshots, asset rights evidence, and review notes.
+  - Configure the macOS cloud workflow and shared Gateway operation under the repository Apple guide.
+  - Coordinate application integration coverage with I001 and interface accessibility with I003.
+
+  Deliverables:
+  - Application changes, repeatable checks, submission materials, and an operational runbook.
+  - Detailed checklist and account decisions: https://github.com/tyemirov/Rhythm/issues/1
+
+  Validation:
+  - Run `make ci` after the final implementation change.
+  - Verify the native state transitions, persistence, permission states, and accessibility through local macOS software tests.
+  - Record identity, entitlements, privacy declarations, and release configuration evidence.
+  - Keep signed-build qualification, upload, TestFlight, submission, and Apple review as separate operational results.
+  - Close implementation after the required code, documents, and checks are completed under repository policy.
+
 ## Maintenance
 
 - [ ] [M400R] (P2) Backlog hygiene and archive
