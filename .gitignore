@@ -1,0 +1,11 @@
+.DS_Store
+.build/
+.swiftpm/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# BEGIN MPRLAB-GOVERNANCE
+/.mprlab/*-PLAN.md
+/_scratch/
+# END MPRLAB-GOVERNANCE
