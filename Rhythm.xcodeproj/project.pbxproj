@@ -132,6 +132,7 @@
 			"sourceTree" = "<group>";
 			"children" = (
 				"C8E410C79A41FEC4C7336287",
+				"E00800000000000000000001",
 			);
 		};
 		"1C1A9ECA884B56EA96DE6E3A" = {
@@ -189,6 +190,8 @@
 				"9DE91A32FFF736DD6571AFFE",
 				"89545AB79D91414D9927B584",
 				"E00700000000000000000001",
+				"E00800000000000000000002",
+				"E00800000000000000000005",
 			);
 			"runOnlyForDeploymentPostprocessing" = "0";
 		};
@@ -508,6 +511,7 @@
 			"children" = (
 				"E00500000000000000000004",
 				"E00600000000000000000001",
+				"E00800000000000000000003",
 			);
 		};
 		"E00500000000000000000004" = {
@@ -526,6 +530,7 @@
 			"files" = (
 				"E00500000000000000000005",
 				"E00600000000000000000002",
+				"E00800000000000000000004",
 			);
 			"runOnlyForDeploymentPostprocessing" = "0";
 		};
@@ -588,6 +593,30 @@
 				"LD_RUNPATH_SEARCH_PATHS" = "$(inherited) @loader_path/../Frameworks";
 				"SWIFT_OPTIMIZATION_LEVEL" = "-Onone";
 			};
+		};
+		"E00800000000000000000001" = {
+			"isa" = "PBXFileReference";
+			"path" = "AppTestHomeTests.swift";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+		"E00800000000000000000002" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "E00800000000000000000001";
+		};
+		"E00800000000000000000003" = {
+			"isa" = "PBXFileReference";
+			"path" = "AppTestHome.swift";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+		"E00800000000000000000004" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "E00800000000000000000003";
+		};
+		"E00800000000000000000005" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "E00800000000000000000003";
 		};
 		"E00600000000000000000001" = {
 			"isa" = "PBXFileReference";
