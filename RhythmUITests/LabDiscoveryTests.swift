@@ -1,0 +1,65 @@
+import XCTest
+
+final class LabDiscoveryTests: XCTestCase {
+    private var app: XCUIApplication!
+
+    override func setUpWithError() throws {
+        continueAfterFailure = false
+        app = XCUIApplication(bundleIdentifier: "com.mprlab.RhythmPrototype")
+        app.launch()
+        if !app.buttons["Settings"].waitForExistence(timeout: 3) {
+            let statusItem = app.statusItems.firstMatch
+            XCTAssertTrue(statusItem.waitForExistence(timeout: 5), app.debugDescription)
+            statusItem.click()
+        }
+        XCTAssertTrue(app.buttons["Settings"].waitForExistence(timeout: 5), app.debugDescription)
+    }
+
+    override func tearDownWithError() throws {
+        app.terminate()
+    }
+
+    func testFooterOpensProjectsAndReturnsToRhythm() {
+        let note = app.textFields["Resume note"]
+        let noteValue = note.value as? String
+        XCTAssertTrue(app.staticTexts["Built by"].exists)
+        assertLink("Marco Polo Research Lab", url: "https://mprlab.com/")
+        app.buttons["More from the lab"].click()
+        assertProjectPage()
+        app.buttons["Back to Rhythm"].click()
+        XCTAssertTrue(app.buttons["Settings"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.buttons["More from the lab"].exists)
+        if let noteValue { XCTAssertEqual(note.value as? String, noteValue) }
+    }
+
+    func testSettingsOpensProjectsAndReturnsToSettings() {
+        app.buttons["Settings"].click()
+        let about = app.buttons["About Rhythm & the lab"]
+        if !about.isHittable { app.scrollViews.firstMatch.swipeUp() }
+        XCTAssertTrue(about.waitForExistence(timeout: 3))
+        about.click()
+        assertProjectPage()
+        app.buttons["Back to Settings"].click()
+        XCTAssertTrue(app.buttons["Quit Rhythm"].exists)
+        XCTAssertTrue(app.buttons["Back to Rhythm"].exists)
+    }
+
+    private func assertProjectPage() {
+        XCTAssertTrue(app.staticTexts["Useful tools. Built with care."].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["Free · Built by Marco Polo Research Lab"].exists)
+        for (project, url) in [
+            ("Gravity Notes", "https://gravity.mprlab.com/"),
+            ("Countdown Calendar", "https://countdown.mprlab.com/"),
+            ("Hecate", "https://hecate.mprlab.com/")
+        ] {
+            assertLink(project, url: url)
+        }
+        assertLink("Explore all projects", url: "https://mprlab.com/#projects")
+    }
+
+    private func assertLink(_ title: String, url: String) {
+        let link = app.links[title]
+        XCTAssertTrue(link.exists, app.debugDescription)
+        XCTAssertEqual(link.value as? String, url)
+    }
+}
