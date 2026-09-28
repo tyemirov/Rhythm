@@ -2,7 +2,7 @@
 
 Assessment date: September 23, 2026.
 
-Rhythm can be prepared for Mac App Store review.
+Flow can be prepared for Mac App Store review.
 Apple determines acceptance after submission.
 The current project supports local development only.
 
@@ -39,11 +39,11 @@ The [privacy draft](PRIVACY.md) and [support draft](SUPPORT.md) describe the cur
 Public page publication remains a separate operation.
 
 The other local applications identify Apple team `Z9ZW6HDGML` and support contact `support@mprlab.com`.
-The proposed permanent identifier is `com.mprlab.Rhythm`.
+The proposed permanent identifier is `com.mprlab.Flow`.
 Apple registration of that identifier remains unverified.
 The application project still uses the prototype identifier until the owner selects the data import procedure.
 
-`.mprlab/apple-build.json` declares `Release Rhythm`, platform `MACOS`, and distribution `APP_STORE_ELIGIBLE`.
+`.mprlab/apple-build.json` declares `Release Flow`, platform `MACOS`, and distribution `APP_STORE_ELIGIBLE`.
 `scripts/build-macos.sh` passes the request to the installed Gateway runtime.
 `make cloud-plan` passed without provider calls.
 This result validates the request shape, not an Apple workflow or a signed build.
@@ -71,7 +71,7 @@ This result comes from the local `MPRLab-Gateway` source:
 - Complete the final screenshots and asset rights evidence.
 - Add the selected manifest after Gateway supports the macOS store lifecycle.
 
-The other repositories do not establish a Rhythm data import decision or a Rhythm privacy address.
+The other repositories do not establish a Flow data import decision or a Flow privacy address.
 No prototype data was changed during this preparation.
 
 ## Preparation Sequence
@@ -107,7 +107,7 @@ The GitHub license and the App Store price are separate decisions.
 
 ## Open Decisions
 
-- Apple account registration of `com.mprlab.Rhythm` under team `Z9ZW6HDGML`.
+- Apple account registration of `com.mprlab.Flow` under team `Z9ZW6HDGML`.
 - Free store price and distribution regions.
 - Public support and privacy addresses.
 - Import of existing local notes and history into the sandbox.
@@ -117,13 +117,13 @@ The GitHub license and the App Store price are separate decisions.
 1. Complete the remaining implementation and I001 validation.
 2. Run `make ci` from the primary checkout.
 3. Register the permanent identifier in the established Apple account.
-4. Create the Rhythm macOS record in App Store Connect.
+4. Create the Flow macOS record in App Store Connect.
 5. Connect the repository to Xcode Cloud.
-6. Create workflow `Release Rhythm` with project `Rhythm.xcodeproj` and shared scheme `Rhythm`.
+6. Create workflow `Release Flow` with project `Flow.xcodeproj` and shared scheme `Flow`.
 7. Select a macOS Release archive action with `APP_STORE_ELIGIBLE` distribution.
 8. Set the cloud build number above every build already uploaded for this version.
 9. Commit the release version before the cloud request.
-10. Provide the canonical private inputs through `configs/.env.rhythm`.
+10. Provide the canonical private inputs through `configs/.env.flow`.
 11. Run the Governor check before the selected manifest or release operation.
 12. After release authorization, use the supported Gateway lifecycle.
 13. Retain the source commit, workflow, provider build identifier, artifact identity, and cloud receipt.

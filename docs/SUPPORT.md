@@ -1,30 +1,30 @@
-# Rhythm Support
+# Flow Support
 
 Send support questions to support@mprlab.com.
 Include your macOS version and a description of the problem.
 Do not include private resume notes unless they are necessary to explain the problem.
 
-## Find Rhythm
+## Find Flow
 
-Click the wave icon in the menu bar to open Rhythm.
-Open Settings to find Quit Rhythm.
+Click the wave icon in the menu bar to open Flow.
+Open Settings to find Quit Flow.
 
 ## Notifications And Focus
 
-Click Enable reminders in Rhythm Settings to request notification permission.
-If permission is denied, enable Rhythm in System Settings → Notifications.
-To receive notifications during Focus, allow Rhythm in that Focus.
+Click Enable reminders in Flow Settings to request notification permission.
+If permission is denied, enable Flow in System Settings → Notifications.
+To receive notifications during Focus, allow Flow in that Focus.
 Use Control Center to change Focus manually.
 
 The 90-minute reminder appears in a separate application window.
 This window does not require notification permission.
-Chimes have separate controls in Rhythm Settings.
+Chimes have separate controls in Flow Settings.
 
 ## Notes And History
 
-Rhythm keeps notes and History locally.
+Flow keeps notes and History locally.
 There is no server copy.
-If Rhythm reports a storage error, preserve the existing data before further changes.
+If Flow reports a storage error, preserve the existing data before further changes.
 The store data import procedure remains pending I004.
 
 ## Dictation

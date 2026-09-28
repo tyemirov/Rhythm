@@ -2,12 +2,15 @@
 
 ## Application Structure
 
-`RhythmApp.swift` owns the application lifecycle through an AppKit delegate.
+`FlowApp.swift` owns the application lifecycle through an AppKit delegate.
 The delegate creates the menu bar item, popover, and application windows.
 SwiftUI renders all application views.
 The application runs with the accessory activation policy.
+`FlowStatusIcon` supplies the menu bar images from the work state.
+The application icon uses the Met public-domain Great Wave image.
+The [artwork record](../artwork/README.md) identifies the source and generation command.
 The menu bar item shows only an icon.
-Ready uses a plain waveform, an active Wave uses a filled waveform circle, and Pause uses pause bars.
+Ready uses a wave crest, an active Wave uses the crest inside a filled circle, and rest uses pause bars.
 The tooltip and accessibility label give the current state.
 During a Wave or Pause, they also give elapsed time.
 
@@ -19,11 +22,11 @@ Back returns to the page that supplied the route.
 SwiftUI links open websites in the default browser only after a user action.
 The application makes no request for project content.
 
-`RhythmModel.swift` connects the engine, timer, services, and local storage on the main actor.
+`FlowModel.swift` connects the engine, timer, services, and local storage on the main actor.
 The model supplies observable state and explicit user commands to the views.
 The views display that state and call those commands.
 
-`Core/RhythmEngine.swift` contains the Codable state machine.
+`Core/WaveEngine.swift` contains the Codable state machine.
 Its states are `ready`, `working`, and `pause`.
 It records wave durations, pause durations, resume notes, and reminder events.
 The application and XCTest target compile this same source file in one Xcode project.
@@ -81,7 +84,9 @@ Manual pause and resume controls remain available when the activity signal is un
 
 State resides in `~/Library/Application Support/RhythmPrototype/history.json`.
 The settings domain is `com.mprlab.RhythmPrototype`.
-These application identifiers remain stable when the source repository moves.
+These fixed local identities keep existing history, preferences, and notification permission when the application name changes.
+`FlowIdentity` defines the application name, data directory, local bundle identifier, and wave asset name.
+The application has one storage path and one preferences domain.
 The application has no network service, analytics, account, or cloud synchronization.
 Lab project links send no resume notes, History, or preferences to the browser.
 
@@ -98,10 +103,10 @@ These behaviors preserve local data at the storage boundary.
 
 ## Validation Boundary
 
-The repository has fifteen headless tests and a native application build.
-The `RhythmUITests` target checks lab attribution, project links, and Back navigation through the running application.
-The shared Rhythm scheme runs both test targets.
-`make test` and `make ci` select only `RhythmTests` by default.
+The repository has seventeen headless tests and a native application build.
+The `FlowUITests` target checks lab attribution, project links, and Back navigation through the running application.
+The shared Flow scheme runs both test targets.
+`make test` and `make ci` select only `FlowTests` by default.
 These commands execute no desktop UI automation.
 Both native UI suites use `AppTestHome` to create an application test home.
 Each home contains an application copy with a unique bundle identifier and local ad-hoc signature.
