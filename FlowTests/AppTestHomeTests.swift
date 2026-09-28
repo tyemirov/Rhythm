@@ -2,25 +2,26 @@ import AppKit
 import XCTest
 
 final class AppTestHomeTests: XCTestCase {
-    func testGreatWaveMenuIconsFollowRealEngineTransitions() throws {
-        let products = Bundle(for: Self.self).bundleURL.deletingLastPathComponent()
-        let application = try XCTUnwrap(Bundle(url: products.appendingPathComponent("Flow.app")))
+    func testWaveMenuIconsFollowRealEngineTransitions() throws {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         addTeardownBlock { try FileManager.default.removeItem(at: root) }
         let store = LocalStore(url: root.appendingPathComponent("history.json"))
         var engine = try store.load()
-        let ready = FlowStatusIcon.image(for: engine.mode, bundle: application)
+        let ready = FlowStatusIcon.image(for: engine.mode)
         let readyPixels = try pixels(of: ready)
+        let water = try XCTUnwrap(NSImage(systemSymbolName: "water.waves", accessibilityDescription: "Wave"))
+        water.size = ready.size
+        XCTAssertEqual(readyPixels, try pixels(of: water), "The menu bar must use the recognizable water-wave symbol.")
         let now = Date(timeIntervalSince1970: 1_790_000_000)
         engine.beginWave(at: now)
-        let working = FlowStatusIcon.image(for: engine.mode, bundle: application)
+        let working = FlowStatusIcon.image(for: engine.mode)
         let workingPixels = try pixels(of: working)
         XCTAssertNotEqual(readyPixels, workingPixels)
         _ = engine.advance(by: 60, at: now.addingTimeInterval(60))
         engine.beginPause(note: "Next step", at: now.addingTimeInterval(60))
         try store.save(engine)
         engine = try store.load()
-        let paused = FlowStatusIcon.image(for: engine.mode, bundle: application)
+        let paused = FlowStatusIcon.image(for: engine.mode)
         let pausePixels = try pixels(of: paused)
         XCTAssertNotEqual(pausePixels, readyPixels)
         XCTAssertNotEqual(pausePixels, workingPixels)
@@ -29,10 +30,37 @@ final class AppTestHomeTests: XCTestCase {
             XCTAssertEqual(image.size, NSSize(width: 18, height: 18))
         }
         engine.beginWave(at: now.addingTimeInterval(90))
-        XCTAssertEqual(engine.elapsed, 0)
+        XCTAssertEqual(engine.elapsed, 60)
         XCTAssertEqual(engine.entries.first?.duration, 60)
         XCTAssertEqual(engine.resumeNote, "Next step")
-        XCTAssertEqual(try pixels(of: FlowStatusIcon.image(for: engine.mode, bundle: application)), workingPixels)
+        XCTAssertEqual(try pixels(of: FlowStatusIcon.image(for: engine.mode)), workingPixels)
+    }
+
+    func testPlaybackControlsOfferRestartAndPlayThroughRealTransitions() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        addTeardownBlock { try FileManager.default.removeItem(at: root) }
+        let store = LocalStore(url: root.appendingPathComponent("history.json"))
+        var engine = try store.load()
+        XCTAssertEqual(WaveAction.controls(mode: engine.mode, preparingPause: false), [.start])
+        engine.beginWave(at: Date(timeIntervalSince1970: 1_790_000_000))
+        XCTAssertEqual(WaveAction.controls(mode: engine.mode, preparingPause: false), [.restart, .preparePause])
+        XCTAssertEqual(WaveAction.controls(mode: engine.mode, preparingPause: true), [.restart, .beginPause])
+        _ = engine.advance(by: 60, at: Date(timeIntervalSince1970: 1_790_000_060))
+        engine.beginPause(note: "Next step", at: Date(timeIntervalSince1970: 1_790_000_060))
+        try store.save(engine)
+        engine = try store.load()
+        XCTAssertEqual(WaveAction.controls(mode: engine.mode, preparingPause: false), [.restart, .continueWork])
+        XCTAssertEqual(WaveAction.start.symbol, "play.fill")
+        XCTAssertEqual(WaveAction.continueWork.symbol, "play.fill")
+        XCTAssertEqual(WaveAction.preparePause.symbol, "pause.fill")
+        XCTAssertEqual(WaveAction.beginPause.symbol, "pause.fill")
+        XCTAssertEqual(WaveAction.restart.symbol, "backward.end.fill")
+        XCTAssertEqual(WaveAction.restart.rawValue, "Restart wave")
+        XCTAssertEqual(WaveAction.continueWork.rawValue, "Continue")
+        for action in [WaveAction.start, .continueWork, .preparePause, .beginPause, .restart] {
+            let symbol = try XCTUnwrap(NSImage(systemSymbolName: action.symbol, accessibilityDescription: action.rawValue))
+            XCTAssertGreaterThan(symbol.size.width, 0)
+        }
     }
 
     func testBuiltApplicationUsesFlowNameAndGreatWaveAssets() throws {
@@ -43,9 +71,19 @@ final class AppTestHomeTests: XCTestCase {
         // Fixed local identity preserves preferences and notification permission.
         XCTAssertEqual(application.bundleIdentifier, FlowIdentity.localBundleIdentifier)
         XCTAssertEqual(LocalStore().url.deletingLastPathComponent().lastPathComponent, FlowIdentity.storageDirectory)
-        let crest = try XCTUnwrap(application.image(forResource: FlowIdentity.waveImage))
-        XCTAssertGreaterThan(crest.size.width, 0)
-        XCTAssertGreaterThan(crest.size.height, 0)
+        let artwork = try XCTUnwrap(application.image(forResource: FlowIdentity.waveImage))
+        XCTAssertGreaterThan(artwork.size.width, 0)
+        XCTAssertGreaterThan(artwork.size.height, 0)
+        XCTAssertFalse(artwork.isTemplate, "The in-app icon must preserve the Great Wave artwork colors.")
+        let artworkPixels = try pixels(of: artwork)
+        let hasColor = stride(from: 0, to: artworkPixels.count, by: 4).contains { (offset: Int) -> Bool in
+            let red: UInt8 = artworkPixels[offset]
+            let green: UInt8 = artworkPixels[offset + 1]
+            let blue: UInt8 = artworkPixels[offset + 2]
+            let alpha: UInt8 = artworkPixels[offset + 3]
+            return alpha > 0 && (red != green || green != blue)
+        }
+        XCTAssertTrue(hasColor, "The bundled in-app icon must contain the original artwork colors.")
         let iconName = try XCTUnwrap(application.object(forInfoDictionaryKey: "CFBundleIconFile") as? String)
         let icon = try XCTUnwrap(application.url(forResource: iconName, withExtension: "icns"))
         XCTAssertNotNil(NSImage(contentsOf: icon))
