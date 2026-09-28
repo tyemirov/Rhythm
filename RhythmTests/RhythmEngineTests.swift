@@ -100,6 +100,49 @@ final class RhythmEngineTests: XCTestCase {
         XCTAssertEqual(engine.resumeNote, "Inspect the next step.")
     }
 
+    func testSavedPauseIncludesOfflineTimeAndKeepsWaveDurationFixed() throws {
+        let testRoot = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        addTeardownBlock { try FileManager.default.removeItem(at: testRoot) }
+        let store = LocalStore(url: testRoot.appendingPathComponent("history.json"))
+        var engine = RhythmEngine()
+        engine.beginWave(at: origin)
+        let pauseStart = origin.addingTimeInterval(3600)
+        _ = engine.advance(by: 3600, at: pauseStart)
+        engine.beginPause(note: "Continue here", at: pauseStart)
+        try store.save(engine)
+
+        var restored = try store.load()
+        let returnTime = pauseStart.addingTimeInterval(95 * 3600)
+        restored.restore(at: returnTime)
+        XCTAssertEqual(restored.mode, .pause)
+        XCTAssertEqual(restored.elapsed, 95 * 3600)
+        XCTAssertEqual(restored.entries.count, 1)
+        XCTAssertEqual(restored.entries[0].duration, 3600)
+        XCTAssertEqual(restored.resumeNote, "Continue here")
+        XCTAssertEqual(restored.advance(by: 2, at: returnTime.addingTimeInterval(2)), [])
+        XCTAssertEqual(restored.elapsed, 95 * 3600 + 2)
+        XCTAssertEqual(restored.entries[0].duration, 3600)
+
+        restored.beginWave(at: returnTime.addingTimeInterval(2))
+        try store.save(restored)
+        let resumed = try store.load()
+        XCTAssertEqual(resumed.mode, .working)
+        XCTAssertEqual(resumed.elapsed, 0)
+        XCTAssertEqual(resumed.entries.count, 2)
+        XCTAssertEqual(resumed.entries[0].kind, .wave)
+        XCTAssertEqual(resumed.entries[0].duration, 3600)
+        XCTAssertEqual(resumed.entries[1].kind, .pause)
+        XCTAssertEqual(resumed.entries[1].duration, 95 * 3600 + 2)
+        XCTAssertEqual(resumed.resumeNote, "Continue here")
+    }
+
+    func testPauseDisplayIdentifiesRecoveryTimeAndTheContinueAction() {
+        XCTAssertEqual(RhythmFormat.pausedTitle, "Wave paused")
+        XCTAssertEqual(RhythmFormat.pauseTime(0), "Pause time: 00:00")
+        XCTAssertEqual(RhythmFormat.pauseTime(95 * 3600 + 8 * 60 + 49), "Pause time: 95:08:49")
+        XCTAssertEqual(RhythmFormat.continueExplanation, "Continue starts a new Wave.")
+    }
+
     func testEveryThirdWaveSuggestsLongerPause() {
         var engine = RhythmEngine()
         for index in 1...3 {
