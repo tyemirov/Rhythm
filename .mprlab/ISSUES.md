@@ -33,7 +33,7 @@ Format: `- [ ] [B042] (P1) {I007} Title`
 
 - [ ] [I002] (P2) Explore input activity as a signal for pause reminder timing
   Goal:
-  Evaluate whether local input activity can help Rhythm select a natural moment for a pause reminder.
+  Evaluate whether local input activity can help Flow select a natural moment for a pause reminder.
   This issue records an exploratory idea, not approval to implement monitoring.
 
   Requirements:
@@ -65,13 +65,13 @@ Format: `- [ ] [B042] (P1) {I007} Title`
   - Review the proposed data flow for content collection and retention.
 
 
-- [ ] [I003] (P2) Polish the Rhythm interface with native macOS controls
+- [ ] [I003] (P2) Polish the Flow interface with native macOS controls
   Goal:
-  Make every Rhythm view clear, consistent, accessible, and quiet during work.
+  Make every Flow view clear, consistent, accessible, and quiet during work.
   Use standard SwiftUI and AppKit controls wherever they meet the product requirements.
 
   Evidence:
-  - Source review on September 20, 2026 covered `Rhythm/Views/RhythmViews.swift` and `Rhythm/RhythmApp.swift`.
+  - Source review on September 20, 2026 covered `Flow/Views/FlowViews.swift` and `Flow/FlowApp.swift`.
   - `NoteEditor` draws a custom border and focus indicator around a plain text field.
   - `WaveTimeline` uses fixed positions, 10-point labels, and a 60-point action area.
   - Settings and history use fixed content heights of 500 and 440 points.
@@ -84,10 +84,10 @@ Format: `- [ ] [B042] (P1) {I007} Title`
   Requirements:
   - Preserve the single menu-bar popover, internal Settings and history pages, Back navigation, and icon-only page headers.
   - Preserve the continuous color timeline, small elapsed time, wave marker, and compact working view.
-  - Keep one primary control with these transitions: ready → Start, working → Pause, note preparation → Stop, resting → Continue.
+  - Keep one primary control with these transitions: ready → Start wave, working → Pause, note preparation → Begin pause, resting → Continue.
   - Keep the action label and its behavior under one explicit state contract.
   - Preserve the note and pending action through internal navigation and popover dismissal.
-  - Keep Quit Rhythm in Settings and the microphone inside the note field.
+  - Keep Quit Flow in Settings and the microphone inside the note field.
   - Prefer standard button styles, control sizes, text editing, selection, scrolling, focus indicators, and system text styles.
   - Use semantic system colors and materials for ordinary controls and surfaces.
   - Reserve custom drawing for the timeline and approved wave identity.
@@ -128,7 +128,7 @@ Format: `- [ ] [B042] (P1) {I007} Title`
   - Apple accessibility guidance: https://developer.apple.com/design/human-interface-guidelines/accessibility
   - Related issue: I001 covers the broader application integration suite.
 
-- [!] [I004] (P1) {I001} Prepare Rhythm for Mac App Store submission
+- [!] [I004] (P1) {I001} Prepare Flow for Mac App Store submission
   Goal:
   Prepare a sandboxed application, repeatable release preparation, and complete submission materials.
 
@@ -154,7 +154,7 @@ Format: `- [ ] [B042] (P1) {I007} Title`
   - Added the macOS store cloud declaration and a provider-free Gateway request check.
   - Prepared metadata, privacy, support, review notes, and the operational runbook.
   - Found Apple team `Z9ZW6HDGML` and support contact `support@mprlab.com` in the other local projects.
-  - Proposed `com.mprlab.Rhythm` as the permanent identifier.
+  - Proposed `com.mprlab.Flow` as the permanent identifier.
   - Kept the current identity and data unchanged pending the explicit one-time import decision.
   - Recorded the remaining screenshots, asset rights, and sandbox validation in `docs/STORE_MATERIALS.md` and `docs/MAC_APP_STORE.md`.
 
