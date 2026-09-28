@@ -105,6 +105,7 @@ Give each term one meaning. Use the same term for the same concept in all docume
 
 ## Repository Technical Nouns
 
+- `application test home`: The temporary directory that contains application files for one test.
 - `default browser`: The application that macOS uses to open website addresses.
 - `lab attribution`: The lab mark and name that identify the application producer.
 - `lab project page`: The Rhythm page that contains links to other lab projects.
