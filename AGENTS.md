@@ -53,7 +53,8 @@ Keep the application as the default target when Xcode opens the repository folde
 - Use real elapsed time for every product timer.
 - Keep accelerated clocks and test controls inside test targets.
 - Use Flow for the application name and Wave for each work period.
-- Use Pause and Continue as ordinary control labels.
+- Use Pause, Continue, and Restart as ordinary control labels.
+- Continue keeps the Wave duration. Restart starts a new Wave at zero.
 - Keep the manual Focus service and manual pause controls as explicit product requirements.
 - Preserve the existing notification permission boundary.
 - Use `make ci` for the local repository checks.
