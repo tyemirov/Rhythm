@@ -42,6 +42,6 @@ privacy-check: build
 	swift scripts/check-privacy.swift "$(BUILD_DIR)/Xcode/Build/Products/$(CONFIGURATION)/Rhythm.app"
 
 cloud-plan:
-	MPRLAB_GATEWAY_EXECUTABLE="$(MPRLAB_GATEWAY_EXECUTABLE)" /bin/sh scripts/build-macos.sh --config "$(CURDIR)/.mprlab/apple-build.json" --target macos-store --source-commit "$$(git rev-parse HEAD)" --git-ref refs/heads/master --version 0.1.0 --output "$(CURDIR)/$(BUILD_DIR)/apple-store" --plan
+	MPRLAB_GATEWAY_EXECUTABLE="$(MPRLAB_GATEWAY_EXECUTABLE)" /bin/sh scripts/build-macos.sh --config "$(CURDIR)/.mprlab/apple-build.json" --target macos-store --git-ref refs/heads/master --version 0.1.0 --output "$(CURDIR)/$(BUILD_DIR)/apple-store" --plan
 
 ci: lint privacy-check test cloud-plan governance docs-check
