@@ -175,6 +175,13 @@ struct RhythmEngine: Codable {
 }
 
 enum RhythmFormat {
+    static let pausedTitle = "Wave paused"
+    static let continueExplanation = "Continue starts a new Wave."
+
+    static func pauseTime(_ seconds: TimeInterval) -> String {
+        "Pause time: \(clock(seconds))"
+    }
+
     static func clock(_ seconds: TimeInterval) -> String {
         let value = max(0, Int(seconds))
         if value >= 3600 { return String(format: "%d:%02d:%02d", value / 3600, value / 60 % 60, value % 60) }

@@ -8,6 +8,8 @@ struct LocalStore {
         url = root.appendingPathComponent("RhythmPrototype", isDirectory: true).appendingPathComponent("history.json")
     }
 
+    init(url: URL) { self.url = url }
+
     func load() throws -> RhythmEngine {
         guard FileManager.default.fileExists(atPath: url.path) else { return RhythmEngine() }
         return try JSONDecoder().decode(RhythmEngine.self, from: Data(contentsOf: url))

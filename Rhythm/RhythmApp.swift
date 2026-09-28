@@ -58,14 +58,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func updateStatus() {
         guard let button = statusItem.button else { return }
-        let icon = model.engine.mode == .pause ? "pause.fill" : "waveform.path"
-        let image = NSImage(systemSymbolName: icon, accessibilityDescription: "Rhythm")
+        let icon: String
+        let state: String
+        switch model.engine.mode {
+        case .ready:
+            icon = "waveform.path"
+            state = "Ready"
+        case .working:
+            icon = "waveform.circle.fill"
+            state = "Wave in progress"
+        case .pause:
+            icon = "pause.fill"
+            state = "Pause"
+        }
+        let image = NSImage(systemSymbolName: icon, accessibilityDescription: state)
         image?.isTemplate = true
         button.image = image
         button.imagePosition = .imageOnly
         button.title = ""
-        button.toolTip = model.title
-        button.setAccessibilityLabel("Rhythm, \(model.title), \(model.menuTitle)")
+        button.toolTip = "\(state) · \(model.menuTitle)"
+        button.setAccessibilityLabel("Rhythm, \(state), \(model.menuTitle)")
     }
 
     @objc private func togglePopover() {
