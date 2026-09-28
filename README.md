@@ -1,5 +1,7 @@
 # Rhythm
 
+**Free · Built by [Marco Polo Research Lab](https://mprlab.com/)**
+
 Rhythm is a local macOS application in the menu bar.
 It provides work periods, pause reminders, resume notes, and a daily history summary.
 All product timers use real elapsed time.
@@ -42,6 +44,7 @@ You can also open `Rhythm.xcodeproj` directly.
 
 The application has no Dock icon.
 The first application start opens the popover.
+The menu bar shows a plain waveform when ready, a filled waveform circle during a Wave, and pause bars during a Pause.
 
 ## Local Commands
 
@@ -51,7 +54,8 @@ Execute these commands from the repository root.
 | --- | --- |
 | `make build` | Build the application for local use. |
 | `make run` | Build and open the application. |
-| `make test` | Execute the core tests. |
+| `make test` | Execute headless core and persistence tests. |
+| `make test-ui` | Execute native tests of lab links, menu bar icons, and navigation. |
 | `make lint` | Do a check of project metadata and Git whitespace. |
 | `make governance` | Do a check of Governor file consistency. |
 | `make docs-check` | Verify the official language reference and check technical prose. |
@@ -76,7 +80,14 @@ Set `GOVERNOR_SKILL` when that installation path differs.
 3. When you return, read the resume note.
 4. Select `Continue` to start the next wave.
 5. Open `Today’s waves` to see completed waves and pauses.
-6. Select `Quit Rhythm` in Settings to close the application.
+6. Select `More from the lab` below History to find other lab projects.
+7. Select `Quit Rhythm` in Settings to close the application.
+
+The lab page includes Gravity Notes, Countdown Calendar, and Hecate.
+Each project link opens its website in your default browser.
+Select `Explore all projects` to open the full lab catalog.
+Settings also contains `About Rhythm & the lab`.
+Back returns to the page from which you opened the lab page.
 
 The suggested pause is five minutes.
 Every third completed wave that day has a suggested fifteen-minute pause.
@@ -127,7 +138,7 @@ A pause is the rest period between waves.
 
 ## License And Distribution
 
-Rhythm is a personal open-source project under the [MIT license](LICENSE).
+Marco Polo Research Lab provides Rhythm under the [MIT license](LICENSE).
 The repository contains the source code and the local Xcode project.
 The application is not yet available through the Mac App Store.
 [Mac App Store preparation](docs/MAC_APP_STORE.md) records the required work and account decisions.
