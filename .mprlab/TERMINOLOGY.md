@@ -105,10 +105,13 @@ Give each term one meaning. Use the same term for the same concept in all docume
 
 ## Repository Technical Nouns
 
+- `CC0`: The Creative Commons public-domain dedication for the retained artwork image.
+- `Great Wave`: The Hokusai woodblock print that supplies the Flow application icon.
+- `asset catalog`: The Xcode source directory that contains application image resources.
 - `application test home`: The temporary directory that contains application files for one test.
 - `default browser`: The application that macOS uses to open website addresses.
 - `lab attribution`: The lab mark and name that identify the application producer.
-- `lab project page`: The Rhythm page that contains links to other lab projects.
+- `lab project page`: The Flow page that contains links to other lab projects.
 - `project catalog`: The list of lab projects on the lab website.
 - `website link`: A control that opens a website address.
 
@@ -119,18 +122,17 @@ Give each term one meaning. Use the same term for the same concept in all docume
 - `entitlement`: A signed declaration of an application capability.
 - `UserDefaults`: The Apple API for saved application preferences.
 
-- `Rhythm`: The local macOS application and the overall pattern of work and pauses.
-- `Wave`: One continuous work period in Rhythm.
-- `Pause`: A recovery period between waves.
+- `Flow`: The local macOS application and the overall pattern of work and pauses.
+- `Wave`: One continuous work period in Flow.
 - `History`: The summary of completed waves and pauses.
 - `Focus`: The macOS feature that controls notification delivery.
 - `AppKit`: The Apple framework for native macOS windows and controls.
 - `SwiftUI`: The Apple framework for declarative user interfaces.
 - `Xcode`: The Apple application development tool.
 - `Xcode scheme`: The shared definition of build, run, and test actions.
-- `menu bar`: The macOS surface that contains the Rhythm status item.
-- `waveform icon`: The wave-shaped symbol that identifies Rhythm in the menu bar.
-- `popover`: The temporary window below the Rhythm status item.
+- `menu bar`: The macOS surface that contains the Flow status item.
+- `wave crest`: The Great Wave shape that identifies Flow in the menu bar.
+- `popover`: The temporary window below the Flow status item.
 - `resume note`: The user text that identifies the next work step.
 - `checkpoint`: A saved copy of the current application state.
 - `uptime`: The monotonic system time used for active duration calculations.

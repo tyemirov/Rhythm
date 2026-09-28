@@ -28,7 +28,7 @@ Validation date: September 23, 2026.
 | Project metadata and Git whitespace | Passed. |
 | Native application build | Passed for Apple silicon and Intel targets. |
 | Core test suite | Twelve tests passed through the shared Xcode scheme. |
-| Open repository folder in Xcode | Selected `Rhythm.xcodeproj`, scheme `Rhythm`, and destination `My Mac`. |
+| Open repository folder in Xcode | Selected `Flow.xcodeproj`, scheme `Flow`, and destination `My Mac`. |
 | Technical prose checks | Passed. |
 
 The official ASD-STE100 Issue 9 reference passed its pinned digest verification.
@@ -115,7 +115,7 @@ Validation date: September 28, 2026.
 Validation used Xcode 27.0 and the macOS 27.0 software environment on Apple silicon.
 
 The main popover now contains the lab mark, lab attribution, and `More from the lab`.
-Settings contains `About Rhythm & the lab`.
+Settings contains `About Flow & the lab`.
 Both controls open the same lab project page.
 The page contains Gravity Notes, Countdown Calendar, Hecate, and the full project catalog link.
 
@@ -128,7 +128,7 @@ The native tests verified project addresses, Back navigation, and the resume not
 Native interface review covered the footer and project page in dark appearance.
 The full catalog link opened `https://mprlab.com/#projects` in Chrome, the default browser.
 The three featured project websites returned HTTP 200 during the link check.
-Rhythm makes no request for project content.
+Flow makes no request for project content.
 
 The full CI command then failed in the existing `cloud-plan` target.
 The installed `apple-cloud-operation` command rejected `--source-commit` as an unknown flag.
@@ -171,7 +171,7 @@ The previously recorded governance drift also remains unresolved.
 Validation date: September 28, 2026.
 
 The Wave duration stops when Pause starts.
-Pause time includes time while Rhythm is closed.
+Pause time includes time while Flow is closed.
 Continue starts a new Wave at zero.
 The display now shows `Wave paused`, `Pause time`, and `Continue starts a new Wave.`
 Time calculation did not change.
@@ -183,7 +183,7 @@ A format test checks the Pause text, including `Pause time: 95:08:49`.
 The tests use an isolated file through the real local storage boundary.
 
 The operator selected verification without screen interaction.
-`make test` and `make ci` now select the headless `RhythmTests` target by default.
+`make test` and `make ci` now select the headless `FlowTests` target by default.
 The final run passed the build, privacy check, and fourteen headless tests.
 Full CI then stopped at the existing unsupported `--source-commit` flag in `cloud-plan`.
 
@@ -217,3 +217,41 @@ It then stopped at the existing Governor drift in `.mprlab/POLICY.md` and `.mprl
 Those managed files differ from the installed Governor contract.
 The technical documents passed the separate mechanical language check.
 The language review covered the changed prose against the verified official reference.
+
+## Flow Name And Great Wave Icons
+
+Validation date: September 28, 2026.
+
+Flow is the application name.
+Wave identifies one continuous work period.
+Pause and Continue remain ordinary control labels.
+The initial work control now shows `Start wave`.
+Source types, directories, Xcode targets, and the shared scheme use the current vocabulary.
+The built application is `Flow.app`.
+The source repository address remains unchanged.
+
+The fixed local bundle identifier and data directory remain unchanged.
+This choice keeps existing history, preferences, and notification permission.
+The saved state schema remains unchanged.
+The application uses one storage path and one preferences domain.
+
+The application icon uses the Met public-domain Great Wave image.
+The [artwork record](../artwork/README.md) gives the source, rights evidence, digest, and generation command.
+The menu bar uses a wave crest when ready and the crest inside a filled circle during work.
+Pause uses pause bars.
+The menu bar remains an icon without a visible application name.
+Obsolete screenshots were removed because they show the previous identity.
+
+The fourteen engine and persistence tests passed before the source refactor.
+The new built-application test failed because the requested application name and assets were absent.
+The action label test failed before `Start wave` was added.
+The headless tests verify built metadata, icon resources, fixed data identities, and distinct state icon pixels.
+They use the real engine transitions and local persistence.
+These tests open no application window and use no screen interaction.
+
+The final `make ci` run passed metadata, build, privacy, seventeen headless tests, and the cloud request.
+It then stopped at the existing Governor drift in `.mprlab/POLICY.md` and `.mprlab/issues-md-format.md`.
+Those two files were unchanged by this task.
+The separate document check passed.
+Language review covered the changed prose against the verified Part 1 rules and Part 2 dictionary.
+The vocabulary scan found only fixed local identities and existing repository addresses with the previous name.

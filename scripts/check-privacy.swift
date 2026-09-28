@@ -21,7 +21,7 @@ do {
     let data = try Data(contentsOf: manifest)
     let actual = try PropertyListSerialization.propertyList(from: data, format: nil)
     guard let dictionary = actual as? NSDictionary, dictionary == expected else {
-        throw NSError(domain: "Rhythm.PrivacyCheck", code: 1,
+        throw NSError(domain: "Flow.PrivacyCheck", code: 1,
                       userInfo: [NSLocalizedDescriptionKey: "Declarations do not match the application audit."])
     }
     print("Privacy declarations verified: \(manifest.path)")

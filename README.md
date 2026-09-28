@@ -1,23 +1,12 @@
-# Rhythm
+# Flow
 
 **Free · Built by [Marco Polo Research Lab](https://mprlab.com/)**
 
-Rhythm is a local macOS application in the menu bar.
+Flow is a local macOS application in the menu bar.
 It provides work periods, pause reminders, resume notes, and a daily history summary.
 All product timers use real elapsed time.
 
-## Screenshots
-
-| Wave | Pause |
-| --- | --- |
-| <img src="docs/screenshots/wave.png" alt="Active wave with elapsed time, a color gradient, and the Pause button" width="400"> | <img src="docs/screenshots/pause.png" alt="Pause with the Continue button and resume note field" width="400"> |
-
-<details>
-<summary>Settings and chimes</summary>
-
-<img src="docs/screenshots/settings.png" alt="Settings with reminder intervals, optional chimes, and volume control" width="400">
-
-</details>
+![Flow application icon](Flow/Assets.xcassets/AppIcon.appiconset/icon_128x128@1x.png)
 
 ## Local Development
 
@@ -33,18 +22,18 @@ The project uses ad-hoc signing for local execution.
 It requires no external packages or developer account.
 
 1. Open the repository folder in Xcode.
-2. Select the `Rhythm` scheme.
+2. Select the `Flow` scheme.
 3. Select `My Mac` as the destination.
 4. Press `Command-R`.
-5. Open the Rhythm icon in the menu bar.
-6. Select `Start`.
+5. Open the Flow icon in the menu bar.
+6. Select `Start wave`.
 
 Use `Command-U` to execute the tests in the same scheme.
-You can also open `Rhythm.xcodeproj` directly.
+You can also open `Flow.xcodeproj` directly.
 
 The application has no Dock icon.
 The first application start opens the popover.
-The menu bar shows a plain waveform when ready, a filled waveform circle during a Wave, and pause bars during a Pause.
+The menu bar shows a wave crest when ready, a crest inside a filled circle during a Wave, and pause bars during rest.
 
 ## Local Commands
 
@@ -54,6 +43,7 @@ Execute these commands from the repository root.
 | --- | --- |
 | `make build` | Build the application for local use. |
 | `make run` | Build and open the application. |
+| `make icons` | Generate the Great Wave icon assets from the retained artwork. |
 | `make test` | Execute headless core and persistence tests. |
 | `make test-ui` | Execute native tests of lab links, menu bar icons, and navigation. |
 | `make lint` | Do a check of project metadata and Git whitespace. |
@@ -65,6 +55,23 @@ Build output stays in the ignored `.build/` directory.
 `make ci` is a local command. It does not publish the application.
 The Governor commands use the installed skill under `~/.codex/skills/mprlab-governor`.
 Set `GOVERNOR_SKILL` when that installation path differs.
+
+## Run Without Xcode
+
+The built application runs independently of Xcode.
+Xcode build tools are necessary only to build the source.
+
+Execute these commands from the repository root:
+
+```bash
+make build
+mkdir -p "$HOME/Applications"
+ditto .build/Xcode/Build/Products/Debug/Flow.app "$HOME/Applications/Flow.app"
+```
+
+Open `~/Applications/Flow.app` through Finder or Spotlight.
+The application appears in the menu bar.
+After source changes, build the application and repeat the copy.
 
 ## Daily Use
 
@@ -81,12 +88,12 @@ Set `GOVERNOR_SKILL` when that installation path differs.
 4. Select `Continue` to start the next wave.
 5. Open `Today’s waves` to see completed waves and pauses.
 6. Select `More from the lab` below History to find other lab projects.
-7. Select `Quit Rhythm` in Settings to close the application.
+7. Select `Quit Flow` in Settings to close the application.
 
 The lab page includes Gravity Notes, Countdown Calendar, and Hecate.
 Each project link opens its website in your default browser.
 Select `Explore all projects` to open the full lab catalog.
-Settings also contains `About Rhythm & the lab`.
+Settings also contains `About Flow & the lab`.
 Back returns to the page from which you opened the lab page.
 
 The suggested pause is five minutes.
@@ -100,8 +107,8 @@ You can close the pause reminder or select `Keep working`.
 1. Open the gear button in the popover.
 2. Select `Enable reminders`.
 3. Accept the macOS notification prompt.
-4. If permission is disabled, enable Rhythm under `System Settings → Notifications`.
-5. To receive reminders during Focus, add Rhythm to the selected Focus allowed-app list.
+4. If permission is disabled, enable Flow under `System Settings → Notifications`.
+5. To receive reminders during Focus, add Flow to the selected Focus allowed-app list.
 
 The 90-minute and 120-minute windows operate independently of notification permission.
 The Focus preference uses a manual service.
@@ -112,12 +119,12 @@ Use `Control Center → Focus` to change Focus when you start or pause work.
 
 | Path | Responsibility |
 | --- | --- |
-| `Rhythm/` | Application source and icon assets. |
-| `Rhythm/Core/` | State transitions, timing rules, and history. |
-| `Rhythm/Services/` | Notifications, Focus, input activity, and local storage. |
-| `Rhythm/Views/` | Native SwiftUI views. |
-| `RhythmTests/` | Core tests. |
-| `Rhythm.xcodeproj/` | Application, XCTest target, and shared Rhythm scheme. |
+| `Flow/` | Application source and icon assets. |
+| `Flow/Core/` | State transitions, timing rules, and history. |
+| `Flow/Services/` | Notifications, Focus, input activity, and local storage. |
+| `Flow/Views/` | Native SwiftUI views. |
+| `FlowTests/` | Core tests. |
+| `Flow.xcodeproj/` | Application, XCTest target, and shared Flow scheme. |
 | `.mprlab/` | Policy, planning rules, terminology, and issue records. |
 | `docs/` | Architecture and validation records. |
 
@@ -126,7 +133,7 @@ Use `Control Center → Focus` to change Focus when you start or pause work.
 
 ## Product Terms
 
-Rhythm is the application and the overall pattern of work and rest.
+Flow is the application and the overall pattern of work and rest.
 A wave is one uninterrupted work period.
 A pause is the rest period between waves.
 `Today’s waves` shows the daily history.
@@ -138,7 +145,7 @@ A pause is the rest period between waves.
 
 ## License And Distribution
 
-Marco Polo Research Lab provides Rhythm under the [MIT license](LICENSE).
+Marco Polo Research Lab provides Flow under the [MIT license](LICENSE).
 The repository contains the source code and the local Xcode project.
 The application is not yet available through the Mac App Store.
 [Mac App Store preparation](docs/MAC_APP_STORE.md) records the required work and account decisions.
