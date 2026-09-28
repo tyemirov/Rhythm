@@ -2,15 +2,15 @@ import XCTest
 
 final class StatusItemTests: XCTestCase {
     private var app: XCUIApplication!
-    private var testHome: URL!
+    private var testHome: AppTestHome?
 
     override func setUpWithError() throws {
         continueAfterFailure = false
-        testHome = FileManager.default.temporaryDirectory.appendingPathComponent("RhythmMenuIconTests")
-            .appendingPathComponent(UUID().uuidString, isDirectory: true)
-        try FileManager.default.createDirectory(at: testHome, withIntermediateDirectories: true)
-        app = XCUIApplication(bundleIdentifier: "com.mprlab.RhythmPrototype")
-        app.launchEnvironment["CFFIXED_USER_HOME"] = testHome.path
+        let home = try AppTestHome()
+        testHome = home
+        let application = try home.prepareApplication(forUITestBundle: Bundle(for: Self.self).bundleURL)
+        app = XCUIApplication(url: application)
+        app.launchEnvironment = home.launchEnvironment
         app.launch()
         if !app.buttons["Start"].waitForExistence(timeout: 3) {
             app.statusItems.firstMatch.click()
@@ -20,9 +20,7 @@ final class StatusItemTests: XCTestCase {
 
     override func tearDownWithError() throws {
         app?.terminate()
-        if let testHome, FileManager.default.fileExists(atPath: testHome.path) {
-            try FileManager.default.removeItem(at: testHome)
-        }
+        try testHome?.remove()
     }
 
     func testMenuBarRemainsIconOnlyAndChangesForWaveAndPause() {

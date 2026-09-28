@@ -2,10 +2,15 @@ import XCTest
 
 final class LabDiscoveryTests: XCTestCase {
     private var app: XCUIApplication!
+    private var testHome: AppTestHome?
 
     override func setUpWithError() throws {
         continueAfterFailure = false
-        app = XCUIApplication(bundleIdentifier: "com.mprlab.RhythmPrototype")
+        let home = try AppTestHome()
+        testHome = home
+        let application = try home.prepareApplication(forUITestBundle: Bundle(for: Self.self).bundleURL)
+        app = XCUIApplication(url: application)
+        app.launchEnvironment = home.launchEnvironment
         app.launch()
         if !app.buttons["Settings"].waitForExistence(timeout: 3) {
             let statusItem = app.statusItems.firstMatch
@@ -16,7 +21,8 @@ final class LabDiscoveryTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        app.terminate()
+        app?.terminate()
+        try testHome?.remove()
     }
 
     func testFooterOpensProjectsAndReturnsToRhythm() {
