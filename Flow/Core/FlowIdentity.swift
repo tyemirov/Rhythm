@@ -5,5 +5,5 @@ enum FlowIdentity {
     // Fixed local identities retain history, preferences, and notification permission.
     static let localBundleIdentifier = "com.mprlab.RhythmPrototype"
     static let storageDirectory = "RhythmPrototype"
-    static let waveImage = "WaveMark"
+    static let waveImage = "GreatWave"
 }

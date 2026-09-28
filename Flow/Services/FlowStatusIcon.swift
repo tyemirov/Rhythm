@@ -1,13 +1,13 @@
 import AppKit
 
 enum FlowStatusIcon {
-    static func image(for mode: WaveMode, bundle: Bundle = .main) -> NSImage {
+    static func image(for mode: WaveMode) -> NSImage {
         let image: NSImage
         switch mode {
         case .ready:
-            image = crest(in: bundle).copy() as! NSImage
+            image = water()
         case .working:
-            let wave = crest(in: bundle)
+            let wave = water()
             image = NSImage(size: NSSize(width: 18, height: 18), flipped: false) { bounds in
                 NSColor.black.setFill()
                 NSBezierPath(ovalIn: bounds).fill()
@@ -23,10 +23,7 @@ enum FlowStatusIcon {
         return image
     }
 
-    private static func crest(in bundle: Bundle) -> NSImage {
-        guard let image = bundle.image(forResource: FlowIdentity.waveImage) else {
-            preconditionFailure("Read \(FlowIdentity.waveImage) from \(bundle.bundleURL.path).")
-        }
-        return image
+    private static func water() -> NSImage {
+        NSImage(systemSymbolName: "water.waves", accessibilityDescription: "Wave")!
     }
 }
