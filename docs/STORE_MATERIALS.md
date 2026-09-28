@@ -61,7 +61,7 @@ Rhythm sends no notes, History, or preferences with these links.
 4. Click Start to start a Wave.
 5. Click Pause to prepare a resume note.
 6. Enter a note.
-7. Click Stop to start a Pause.
+7. Click Begin pause to start a Pause.
 8. Click Continue to start the next Wave.
 9. Open Settings to find the notification and chime controls.
 10. Click Quit Rhythm in Settings to close the application.

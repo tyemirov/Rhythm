@@ -98,11 +98,17 @@ These behaviors preserve local data at the storage boundary.
 
 ## Validation Boundary
 
-The repository has fourteen headless tests and a native application build.
+The repository has fifteen headless tests and a native application build.
 The `RhythmUITests` target checks lab attribution, project links, and Back navigation through the running application.
 The shared Rhythm scheme runs both test targets.
 `make test` and `make ci` select only `RhythmTests` by default.
 These commands execute no desktop UI automation.
+Both native UI suites use `AppTestHome` to create an application test home.
+Each home contains an application copy with a unique bundle identifier and local ad-hoc signature.
+The unique identifier gives each test its own UserDefaults domain.
+`CFFIXED_USER_HOME` directs application files to the temporary directory.
+Cleanup removes that directory and the test preferences.
+The headless fixture test checks the application copy, file writes, preference separation, and cleanup.
 Earlier native UI automation checked pause, resume, defer, overrun, and History behavior.
 A repeatable application integration suite remains open under I001.
 Core tests alone do not establish complete application acceptance.

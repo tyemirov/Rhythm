@@ -191,3 +191,29 @@ The initial desktop test failed because the Pause explanation was absent.
 Later desktop test attempts failed at unavailable controls or a text-value assertion.
 Those tests were removed from the selected validation lane after the operator selected headless tests.
 The final display has no visual acceptance claim.
+
+## Review Fixes
+
+Validation date: September 28, 2026.
+
+The cloud request no longer supplies the unsupported `--source-commit` flag.
+`make cloud-plan` passed through the installed Gateway runtime without provider calls.
+The submission instructions now name the `Begin pause` control.
+
+Both native UI test suites use the shared `AppTestHome` fixture.
+Each test receives an application copy with a unique bundle identifier and a local ad-hoc signature.
+`CFFIXED_USER_HOME` directs application files to the application test home.
+The unique identifier gives each test its own preferences.
+Cleanup removes the application files and test preferences.
+
+The initial headless test failed when the home directory was not changed.
+Further checks showed that the home setting alone did not give UserDefaults a separate domain.
+The final test passed with the unique test identifier.
+The test verified application metadata, Foundation file writes, UserDefaults, and cleanup through a background executable.
+The test opened no application window and used no screen interaction.
+
+The final `make ci` run passed metadata checks, the application build, the privacy check, fifteen headless tests, and the cloud request.
+It then stopped at the existing Governor drift in `.mprlab/POLICY.md` and `.mprlab/issues-md-format.md`.
+Those managed files differ from the installed Governor contract.
+The technical documents passed the separate mechanical language check.
+The language review covered the changed prose against the verified official reference.
