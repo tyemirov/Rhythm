@@ -128,7 +128,7 @@ Format: `- [ ] [B042] (P1) {I007} Title`
   - Apple accessibility guidance: https://developer.apple.com/design/human-interface-guidelines/accessibility
   - Related issue: I001 covers the broader application integration suite.
 
-- [ ] [I004] (P1) {I001} Prepare Rhythm for Mac App Store submission
+- [!] [I004] (P1) {I001} Prepare Rhythm for Mac App Store submission
   Goal:
   Prepare a sandboxed application, repeatable release preparation, and complete submission materials.
 
@@ -144,6 +144,19 @@ Format: `- [ ] [B042] (P1) {I007} Title`
   Deliverables:
   - Application changes, repeatable checks, submission materials, and an operational runbook.
   - Detailed checklist and account decisions: https://github.com/tyemirov/Rhythm/issues/1
+
+  Blocked: I001 coverage is absent. Gateway F015 must add the selected lifecycle resource for macOS store distribution.
+  Gateway F015: https://github.com/MarcoPoloResearchLab/mprlab-gateway/issues/416
+
+  Preparation results:
+  - Added the privacy manifest and a check of the built application resource.
+  - Verified the expected missing-manifest failure before the resource change.
+  - Added the macOS store cloud declaration and a provider-free Gateway request check.
+  - Prepared metadata, privacy, support, review notes, and the operational runbook.
+  - Found Apple team `Z9ZW6HDGML` and support contact `support@mprlab.com` in the other local projects.
+  - Proposed `com.mprlab.Rhythm` as the permanent identifier.
+  - Kept the current identity and data unchanged pending the explicit one-time import decision.
+  - Recorded the remaining screenshots, asset rights, and sandbox validation in `docs/STORE_MATERIALS.md` and `docs/MAC_APP_STORE.md`.
 
   Validation:
   - Run `make ci` after the final implementation change.

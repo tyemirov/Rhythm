@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "products": {
+    "macos-store": {
+      "bundle_identifier": "com.mprlab.Rhythm",
+      "platform": "MACOS",
+      "workflow": "Release Rhythm",
+      "container_file": "Rhythm.xcodeproj",
+      "scheme": "Rhythm",
+      "distribution": "APP_STORE_ELIGIBLE"
+    }
+  }
+}

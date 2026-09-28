@@ -81,3 +81,139 @@ Local software environments are sufficient for this repository's device validati
 
 The public source publication does not constitute a signed application release.
 Mac App Store preparation remains separate, as described in `MAC_APP_STORE.md`.
+
+## I004 Preparation Checks
+
+Validation date: September 23, 2026.
+
+`make ci` passed after the preparation changes.
+The check included the native build, twelve core tests, privacy manifest, cloud request, Governor, and technical prose.
+The initial privacy check failed because the built application had no `PrivacyInfo.xcprivacy` resource.
+The check passed after the manifest was added to the application resources.
+
+`make cloud-plan` validated the `MACOS` request with `APP_STORE_ELIGIBLE` through the installed Gateway runtime.
+The command made no provider calls.
+It did not verify Apple account registration or the existence of the cloud workflow.
+
+The first CI run found a new Python profile from the privacy checker.
+The checker now uses Swift and Foundation.
+Governor and the final CI run passed with the existing repository profiles.
+
+The new prose passed the mechanical check.
+Language review covered the changed preparation notes and the new privacy, support, and submission documents.
+The official reference passed its pinned digest check.
+The review used the applicable Part 1 rules and Part 2 dictionary entries.
+
+I004 remains blocked by I001 and the absent Gateway lifecycle resource for macOS store distribution.
+The application identity, sandbox state, and existing user data did not change.
+Native sandbox validation, final screenshots, asset rights approval, and the one-time import decision remain pending.
+No signed build, upload, TestFlight operation, or submission was performed.
+
+## Lab Project Links
+
+Validation date: September 28, 2026.
+Validation used Xcode 27.0 and the macOS 27.0 software environment on Apple silicon.
+
+The main popover now contains the lab mark, lab attribution, and `More from the lab`.
+Settings contains `About Rhythm & the lab`.
+Both controls open the same lab project page.
+The page contains Gravity Notes, Countdown Calendar, Hecate, and the full project catalog link.
+
+The two native application tests failed before the required controls were added.
+`make test-ui` passed after the application changes.
+The final `make ci` run passed the build, privacy check, and all fourteen tests.
+The test count includes twelve core tests and two native application tests.
+The native tests verified project addresses, Back navigation, and the resume note after navigation.
+
+Native interface review covered the footer and project page in dark appearance.
+The full catalog link opened `https://mprlab.com/#projects` in Chrome, the default browser.
+The three featured project websites returned HTTP 200 during the link check.
+Rhythm makes no request for project content.
+
+The full CI command then failed in the existing `cloud-plan` target.
+The installed `apple-cloud-operation` command rejected `--source-commit` as an unknown flag.
+A separate `make governance` check also failed.
+The managed contents of `.mprlab/POLICY.md` and `.mprlab/issues-md-format.md` differ from the installed Governor contract.
+These existing build plan and governance failures remain outside the lab interface change.
+The technical documents passed the mechanical language check.
+The language review covered the changed prose against the verified official reference.
+
+## Menu Bar Icons
+
+Validation date: September 28, 2026.
+Validation used Xcode 27.0 and the macOS 27.0 software environment on Apple silicon.
+
+An obsolete application copy was also running from an earlier build directory.
+That copy was closed through its Quit control.
+The application from this checkout is the current local build.
+
+The menu bar item has an empty visible title in Ready, Wave, and Pause.
+Ready shows a plain waveform icon.
+An active Wave shows a filled waveform circle.
+Pause shows pause bars.
+The tooltip and accessibility label give the current state.
+
+The new native test failed before the Wave state indication was added.
+The test passed after the application change.
+It verified different icon images across Ready, Wave, and Pause.
+It also verified the Wave icon after Continue and the empty visible title through all transitions.
+XCTest supplied an isolated home directory for the test application.
+The test removed that directory after the application closed.
+Product timers used real elapsed time.
+
+The final repository run passed the build, privacy check, and all fifteen tests.
+The test count includes twelve core tests and three native application tests.
+Full CI then stopped at the existing unsupported `--source-commit` flag in `cloud-plan`.
+The previously recorded governance drift also remains unresolved.
+
+## Pause Time Display
+
+Validation date: September 28, 2026.
+
+The Wave duration stops when Pause starts.
+Pause time includes time while Rhythm is closed.
+Continue starts a new Wave at zero.
+The display now shows `Wave paused`, `Pause time`, and `Continue starts a new Wave.`
+Time calculation did not change.
+
+A headless integration test saves a one-hour Wave and restores a Pause after 95 hours.
+The test verifies that Pause time advances and the completed Wave duration stays fixed.
+It also verifies that Continue starts a new Wave at zero and preserves the resume note.
+A format test checks the Pause text, including `Pause time: 95:08:49`.
+The tests use an isolated file through the real local storage boundary.
+
+The operator selected verification without screen interaction.
+`make test` and `make ci` now select the headless `RhythmTests` target by default.
+The final run passed the build, privacy check, and fourteen headless tests.
+Full CI then stopped at the existing unsupported `--source-commit` flag in `cloud-plan`.
+
+The initial desktop test failed because the Pause explanation was absent.
+Later desktop test attempts failed at unavailable controls or a text-value assertion.
+Those tests were removed from the selected validation lane after the operator selected headless tests.
+The final display has no visual acceptance claim.
+
+## Review Fixes
+
+Validation date: September 28, 2026.
+
+The cloud request no longer supplies the unsupported `--source-commit` flag.
+`make cloud-plan` passed through the installed Gateway runtime without provider calls.
+The submission instructions now name the `Begin pause` control.
+
+Both native UI test suites use the shared `AppTestHome` fixture.
+Each test receives an application copy with a unique bundle identifier and a local ad-hoc signature.
+`CFFIXED_USER_HOME` directs application files to the application test home.
+The unique identifier gives each test its own preferences.
+Cleanup removes the application files and test preferences.
+
+The initial headless test failed when the home directory was not changed.
+Further checks showed that the home setting alone did not give UserDefaults a separate domain.
+The final test passed with the unique test identifier.
+The test verified application metadata, Foundation file writes, UserDefaults, and cleanup through a background executable.
+The test opened no application window and used no screen interaction.
+
+The final `make ci` run passed metadata checks, the application build, the privacy check, fifteen headless tests, and the cloud request.
+It then stopped at the existing Governor drift in `.mprlab/POLICY.md` and `.mprlab/issues-md-format.md`.
+Those managed files differ from the installed Governor contract.
+The technical documents passed the separate mechanical language check.
+The language review covered the changed prose against the verified official reference.

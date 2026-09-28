@@ -8,12 +8,18 @@
       <BuildActionEntry buildForTesting="YES" buildForRunning="NO" buildForProfiling="NO" buildForArchiving="NO" buildForAnalyzing="YES">
         <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="B2BFE0D3C68337315431B2F3" BuildableName="RhythmTests.xctest" BlueprintName="RhythmTests" ReferencedContainer="container:Rhythm.xcodeproj" />
       </BuildActionEntry>
+      <BuildActionEntry buildForTesting="YES" buildForRunning="NO" buildForProfiling="NO" buildForArchiving="NO" buildForAnalyzing="YES">
+        <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="E00500000000000000000001" BuildableName="RhythmUITests.xctest" BlueprintName="RhythmUITests" ReferencedContainer="container:Rhythm.xcodeproj" />
+      </BuildActionEntry>
     </BuildActionEntries>
   </BuildAction>
   <TestAction buildConfiguration="Debug" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.IDEFoundation.Launcher.LLDB" shouldUseLaunchSchemeArgsEnv="YES">
     <Testables>
       <TestableReference skipped="NO" parallelizable="NO">
         <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="B2BFE0D3C68337315431B2F3" BuildableName="RhythmTests.xctest" BlueprintName="RhythmTests" ReferencedContainer="container:Rhythm.xcodeproj" />
+      </TestableReference>
+      <TestableReference skipped="NO" parallelizable="NO">
+        <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="E00500000000000000000001" BuildableName="RhythmUITests.xctest" BlueprintName="RhythmUITests" ReferencedContainer="container:Rhythm.xcodeproj" />
       </TestableReference>
     </Testables>
   </TestAction>

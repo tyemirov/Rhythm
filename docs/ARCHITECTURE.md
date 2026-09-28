@@ -6,6 +6,18 @@
 The delegate creates the menu bar item, popover, and application windows.
 SwiftUI renders all application views.
 The application runs with the accessory activation policy.
+The menu bar item shows only an icon.
+Ready uses a plain waveform, an active Wave uses a filled waveform circle, and Pause uses pause bars.
+The tooltip and accessibility label give the current state.
+During a Wave or Pause, they also give elapsed time.
+
+The popover contains the main view, Settings, History, and the lab project page.
+The main view includes the lab attribution and a button that opens the project page.
+Settings supplies a second route to that page.
+Back returns to the page that supplied the route.
+`LabContent` defines the project names, descriptions, and website addresses.
+SwiftUI links open websites in the default browser only after a user action.
+The application makes no request for project content.
 
 `RhythmModel.swift` connects the engine, timer, services, and local storage on the main actor.
 The model supplies observable state and explicit user commands to the views.
@@ -28,6 +40,9 @@ The engine emits each threshold event once per wave.
 A delayed timer emits only the most relevant intervention.
 One five-minute defer is available when the deadline fits before 120 minutes.
 A pause ends only through an explicit user action.
+The Pause display shows `Wave paused` and labels the duration as `Pause time`.
+The display explains that Continue starts a new Wave.
+The completed Wave duration stays fixed during Pause.
 
 The application saves state at transitions and approximately every fifteen seconds.
 It also saves changes to the resume note.
@@ -68,6 +83,7 @@ State resides in `~/Library/Application Support/RhythmPrototype/history.json`.
 The settings domain is `com.mprlab.RhythmPrototype`.
 These application identifiers remain stable when the source repository moves.
 The application has no network service, analytics, account, or cloud synchronization.
+Lab project links send no resume notes, History, or preferences to the browser.
 
 Resume notes have a 2,000-character limit.
 History keeps up to ninety days when an entry is completed.
@@ -82,7 +98,17 @@ These behaviors preserve local data at the storage boundary.
 
 ## Validation Boundary
 
-The repository has twelve core tests and a native application build.
+The repository has fifteen headless tests and a native application build.
+The `RhythmUITests` target checks lab attribution, project links, and Back navigation through the running application.
+The shared Rhythm scheme runs both test targets.
+`make test` and `make ci` select only `RhythmTests` by default.
+These commands execute no desktop UI automation.
+Both native UI suites use `AppTestHome` to create an application test home.
+Each home contains an application copy with a unique bundle identifier and local ad-hoc signature.
+The unique identifier gives each test its own UserDefaults domain.
+`CFFIXED_USER_HOME` directs application files to the temporary directory.
+Cleanup removes that directory and the test preferences.
+The headless fixture test checks the application copy, file writes, preference separation, and cleanup.
 Earlier native UI automation checked pause, resume, defer, overrun, and History behavior.
 A repeatable application integration suite remains open under I001.
 Core tests alone do not establish complete application acceptance.
