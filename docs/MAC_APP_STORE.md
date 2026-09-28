@@ -18,13 +18,61 @@ The current project supports local development only.
 | Focus | Manual service | Keep the preference and instructions accurate about manual operation. |
 | Notes | Local text with macOS Dictation help | Verify Dictation behavior and describe the actual permission boundary. |
 | Chimes | Local generated audio | Do a test of sound output and settings inside the sandbox. |
-| Release automation | No store build declaration | Configure the macOS cloud workflow and shared Gateway operation. |
+| Release automation | Store cloud declaration and request check | Complete the Gateway store lifecycle contract. |
 
 The existing identifier also controls saved preferences.
 A new identifier requires an explicit decision about existing local data.
-The application uses UserDefaults and system uptime.
-Review these APIs against Apple's required-reason API list before submission.
-Add the applicable privacy manifest declarations.
+The privacy manifest declares UserDefaults with reason `CA92.1` and system uptime with reason `35F9.1`.
+UserDefaults stores preferences for this application.
+System uptime measures elapsed time for Wave and Pause timers.
+The source audit found no calls for file timestamps, disk capacity, or active keyboard information.
+The application declares no data collection or tracking.
+`make privacy-check` verifies the privacy manifest in the built application.
+
+The initial check failed because the application bundle had no privacy manifest.
+After the resource change, the same check passed.
+
+## I004 Preparation Results
+
+The [submission materials](STORE_MATERIALS.md) contain proposed metadata, review notes, privacy answers, and an asset inventory.
+The [privacy draft](PRIVACY.md) and [support draft](SUPPORT.md) describe the current application.
+Public page publication remains a separate operation.
+
+The other local applications identify Apple team `Z9ZW6HDGML` and support contact `support@mprlab.com`.
+The proposed permanent identifier is `com.mprlab.Rhythm`.
+Apple registration of that identifier remains unverified.
+The application project still uses the prototype identifier until the owner selects the data import procedure.
+
+`.mprlab/apple-build.json` declares `Release Rhythm`, platform `MACOS`, and distribution `APP_STORE_ELIGIBLE`.
+`scripts/build-macos.sh` passes the request to the installed Gateway runtime.
+`make cloud-plan` passed without provider calls.
+This result validates the request shape, not an Apple workflow or a signed build.
+
+The current Gateway lifecycle has no selected resource for a macOS store application.
+Its `macos_application` resource selects `DEVELOPER_ID` and publishes through GitHub Releases.
+Its cloud operation accepts a separate store target.
+The selected manifest and lifecycle commands remain pending a Gateway contract for macOS store distribution.
+Do not use the direct-download resource for the store artifact.
+
+This result comes from the local `MPRLab-Gateway` source:
+
+- `docs/apple-cloud-build.md` defines the store cloud target and the direct-download resource.
+- `deploy/ansible/playbooks/tasks/build-selected-release-macos.yml` requires `DEVELOPER_ID`.
+- `deploy/ansible/playbooks/tasks/publish-selected-release-macos.yml` checks the same distribution value.
+
+## Remaining Implementation
+
+- Complete the application integration suite in I001.
+- Select the one-time import of prototype notes, History, and preferences.
+- Change the application identity and storage together after that decision.
+- Enable App Sandbox and verify all application services through I001.
+- Configure store signing with the established Apple team.
+- Add the public privacy address to Settings after the address is selected.
+- Complete the final screenshots and asset rights evidence.
+- Add the selected manifest after Gateway supports the macOS store lifecycle.
+
+The other repositories do not establish a Rhythm data import decision or a Rhythm privacy address.
+No prototype data was changed during this preparation.
 
 ## Preparation Sequence
 
@@ -59,11 +107,48 @@ The GitHub license and the App Store price are separate decisions.
 
 ## Open Decisions
 
-- Existing Apple membership and team identity.
-- Permanent bundle identifier.
+- Apple account registration of `com.mprlab.Rhythm` under team `Z9ZW6HDGML`.
 - Free store price and distribution regions.
-- Support contact and privacy policy address.
+- Public support and privacy addresses.
 - Import of existing local notes and history into the sandbox.
+
+## Operational Runbook
+
+1. Complete the remaining implementation and I001 validation.
+2. Run `make ci` from the primary checkout.
+3. Register the permanent identifier in the established Apple account.
+4. Create the Rhythm macOS record in App Store Connect.
+5. Connect the repository to Xcode Cloud.
+6. Create workflow `Release Rhythm` with project `Rhythm.xcodeproj` and shared scheme `Rhythm`.
+7. Select a macOS Release archive action with `APP_STORE_ELIGIBLE` distribution.
+8. Set the cloud build number above every build already uploaded for this version.
+9. Commit the release version before the cloud request.
+10. Provide the canonical private inputs through `configs/.env.rhythm`.
+11. Run the Governor check before the selected manifest or release operation.
+12. After release authorization, use the supported Gateway lifecycle.
+13. Retain the source commit, workflow, provider build identifier, artifact identity, and cloud receipt.
+14. Verify the signed artifact identity, entitlements, version, build number, and privacy manifest.
+15. Record TestFlight results separately from local tests.
+16. After submission authorization, submit the selected build with the completed store materials.
+17. Record Apple review and public availability as separate results.
+
+Gateway owns these private input names:
+
+```text
+APP_STORE_CONNECT_API_ISSUER_ID
+APP_STORE_CONNECT_API_KEY_ID
+APP_STORE_CONNECT_API_KEY_PATH
+```
+
+The key path identifies the Apple `.p8` key.
+These credentials authorize provider calls.
+They are not a local signing identity.
+The preparation commands require no provider credentials.
+No provider authentication, build upload, or publication was attempted.
+
+If a build submission has an uncertain result, inspect its provider state before another request.
+Use the existing build identifier with Gateway recovery after its source and workflow are verified.
+Keep `apple-cloud-intent.json`, `apple-cloud.json`, and downloaded artifacts with the release evidence.
 
 ## Official References
 
