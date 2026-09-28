@@ -33,7 +33,12 @@ You can also open `Flow.xcodeproj` directly.
 
 The application has no Dock icon.
 The first application start opens the popover.
-The menu bar shows a wave crest when ready, a crest inside a filled circle during a Wave, and pause bars during rest.
+Ready shows the `water.waves` system symbol in the menu bar.
+An active Wave shows the same symbol inside a filled circle.
+Pause shows pause bars.
+The application views show the Great Wave image in color.
+Playback controls use play, pause, and restart symbols.
+Tooltips and accessibility labels identify each action.
 
 ## Local Commands
 
@@ -85,7 +90,7 @@ After source changes, build the application and repeat the copy.
 1. Select `Pause` to show the resume note field.
 2. Enter a note if needed, then select `Begin pause`.
 3. When you return, read the resume note.
-4. Select `Continue` to start the next wave.
+4. Select the play control, `Continue`, to continue the same Wave.
 5. Open `Today’s waves` to see completed waves and pauses.
 6. Select `More from the lab` below History to find other lab projects.
 7. Select `Quit Flow` in Settings to close the application.
@@ -98,7 +103,7 @@ Back returns to the page from which you opened the lab page.
 
 The suggested pause is five minutes.
 Every third completed wave that day has a suggested fifteen-minute pause.
-The application resumes only when you select `Continue`.
+The application starts work only after you select `Continue` or `Restart wave`.
 One five-minute defer is available through minute 115.
 You can close the pause reminder or select `Keep working`.
 
@@ -134,14 +139,20 @@ Use `Control Center → Focus` to change Focus when you start or pause work.
 ## Product Terms
 
 Flow is the application and the overall pattern of work and rest.
-A wave is one uninterrupted work period.
-A pause is the rest period between waves.
+A Wave is a work period.
+You can pause a Wave and continue it later.
+A pause is a rest period within or between waves.
 `Today’s waves` shows the daily history.
 `Where to pick up` labels the resume note field.
 
 `Pause` opens the note field while the wave continues.
-`Begin pause` ends the wave and starts rest.
-`Continue` ends rest and starts a new wave with its timer at zero.
+`Begin pause` stops the work timer and starts Pause time.
+`Continue` starts work again at the saved Wave duration.
+`Restart wave` starts a new Wave at zero and keeps the previous time in History.
+The restart control is available during work and Pause.
+
+The Pause display shows both the saved Wave time and the current Pause time.
+Pause time does not increase Wave time.
 
 ## License And Distribution
 

@@ -123,7 +123,8 @@ Give each term one meaning. Use the same term for the same concept in all docume
 - `UserDefaults`: The Apple API for saved application preferences.
 
 - `Flow`: The local macOS application and the overall pattern of work and pauses.
-- `Wave`: One continuous work period in Flow.
+- `Wave`: One work period in Flow that can include explicit pauses.
+- `playback control`: An icon button for `Start wave`, `Pause`, `Continue`, or `Restart wave`.
 - `History`: The summary of completed waves and pauses.
 - `Focus`: The macOS feature that controls notification delivery.
 - `AppKit`: The Apple framework for native macOS windows and controls.
@@ -131,7 +132,6 @@ Give each term one meaning. Use the same term for the same concept in all docume
 - `Xcode`: The Apple application development tool.
 - `Xcode scheme`: The shared definition of build, run, and test actions.
 - `menu bar`: The macOS surface that contains the Flow status item.
-- `wave crest`: The Great Wave shape that identifies Flow in the menu bar.
 - `popover`: The temporary window below the Flow status item.
 - `resume note`: The user text that identifies the next work step.
 - `checkpoint`: A saved copy of the current application state.

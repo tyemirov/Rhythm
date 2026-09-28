@@ -99,9 +99,20 @@ final class FlowModel: ObservableObject {
     func beginWave() {
         syncTime()
         engine.beginWave(at: Date())
+        didBeginWave()
+    }
+
+    func restartWave() {
+        syncTime(deliverEvents: false)
+        engine.restartWave(at: Date())
+        didBeginWave()
+    }
+
+    private func didBeginWave() {
         lastTick = ProcessInfo.processInfo.systemUptime
         chimes.stop()
         notifications.clear()
+        onDismissIntervention?()
         updateFocus()
         persist()
     }

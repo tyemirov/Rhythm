@@ -11,9 +11,11 @@ The Met Open Access policy permits use under CC0.
 - Source file: `great-wave.jpg`
 - SHA-256: `cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303`
 
-`scripts/generate-icons.swift` creates the application icon sizes from this source image.
-It also creates the wave crest PDF for the menu bar and application views.
-The crest is a simplified drawing of the Great Wave shape.
-The asset catalog keeps the PDF as a template image.
+`scripts/generate-icons.swift` creates the application icons from this source image.
+It also creates the `GreatWave` images at `1x` and `2x` for the application views.
+These images keep the colors of the source image.
+The menu bar uses the Apple `water.waves` system symbol.
+An active Wave shows that symbol inside a filled circle.
+Pause shows pause bars.
 
 Run `make icons` from the repository root to generate these assets again.

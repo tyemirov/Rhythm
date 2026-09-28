@@ -214,6 +214,7 @@ struct LabProjectsView: View {
 struct WaveIcon: View {
     var body: some View {
         Image(FlowIdentity.waveImage)
+            .renderingMode(.original)
             .resizable()
             .scaledToFit()
             .frame(width: 26, height: 26)
@@ -228,13 +229,16 @@ struct FlowView: View {
     var openProjects: () -> Void
     @State private var preparingPause = false
 
-    private var primaryAction: WaveAction {
-        WaveAction.next(mode: model.engine.mode, preparingPause: preparingPause)
+    private var actions: [WaveAction] {
+        WaveAction.controls(mode: model.engine.mode, preparingPause: preparingPause)
     }
 
-    private func performPrimaryAction() {
-        switch primaryAction {
+    private func perform(_ action: WaveAction) {
+        switch action {
         case .start, .continueWork: model.beginWave()
+        case .restart:
+            preparingPause = false
+            model.restartWave()
         case .preparePause: preparingPause = true
         case .beginPause: model.pause()
         }
@@ -243,7 +247,7 @@ struct FlowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
-                Label(FlowIdentity.name, image: FlowIdentity.waveImage)
+                Label { Text(FlowIdentity.name) } icon: { WaveIcon() }
                     .font(.system(.headline, design: .rounded))
                 Spacer()
                 Button(action: openSettings) { Image(systemName: "gearshape") }
@@ -253,13 +257,14 @@ struct FlowView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 5) {
                         Label(WaveFormat.pausedTitle, systemImage: "pause.fill")
+                        Text(WaveFormat.waveTime(model.engine.pausedWaveDuration))
+                            .font(.caption).monospacedDigit().foregroundStyle(.secondary)
                         Text(WaveFormat.pauseTime(model.engine.elapsed))
                             .font(.caption).monospacedDigit().foregroundStyle(.secondary)
                             .accessibilityIdentifier("pause-time")
                     }
                     Spacer()
-                    Button(primaryAction.rawValue, action: performPrimaryAction)
-                        .buttonStyle(.borderedProminent).tint(FlowStyle.button)
+                    WavePlaybackControls(actions: actions, perform: perform)
                 }
                 VStack(alignment: .leading, spacing: 6) {
                     Text(WaveFormat.continueExplanation)
@@ -268,7 +273,7 @@ struct FlowView: View {
                 NoteEditor(model: model)
             } else {
                 WaveTimeline(elapsed: model.engine.mode == .working ? model.engine.elapsed : nil,
-                             actionTitle: primaryAction.rawValue, action: performPrimaryAction)
+                             actions: actions, perform: perform)
                 if model.engine.mode == .working {
                     if model.engine.stage != .quiet {
                         Text(model.title).font(.caption).foregroundStyle(.secondary)
@@ -315,16 +320,36 @@ struct FlowView: View {
 
     private var todaySummary: String {
         let today = model.engine.entries.filter { Calendar.current.isDateInToday($0.endedAt) }
-        let waves = today.filter { $0.kind == .wave }.count
+        let waves = today.filter { $0.kind == .wave && $0.duration > 0 }.count
         let pauses = today.filter { $0.kind == .pause }.count
         return "\(waves) \(waves == 1 ? "wave" : "waves") · \(pauses) \(pauses == 1 ? "pause" : "pauses") completed"
     }
 }
 
+struct WavePlaybackControls: View {
+    var actions: [WaveAction]
+    var perform: (WaveAction) -> Void
+
+    var body: some View {
+        HStack(spacing: 6) {
+            ForEach(actions, id: \.self) { action in
+                Button { perform(action) } label: {
+                    Image(systemName: action.symbol)
+                        .font(.system(size: 15, weight: .semibold))
+                        .frame(width: 22, height: 24)
+                }
+                .buttonStyle(.borderedProminent).tint(FlowStyle.button)
+                .help(action.help)
+                .accessibilityLabel(action.rawValue)
+            }
+        }.fixedSize()
+    }
+}
+
 struct WaveTimeline: View {
     var elapsed: TimeInterval?
-    var actionTitle: String
-    var action: () -> Void
+    var actions: [WaveAction]
+    var perform: (WaveAction) -> Void
     private let gradient = LinearGradient(stops: [
         .init(color: Color(red: 0.28, green: 0.70, blue: 0.48), location: 0),
         .init(color: Color(red: 0.38, green: 0.74, blue: 0.45), location: 0.35),
@@ -368,9 +393,7 @@ struct WaveTimeline: View {
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel("Green for the first hour, gradually yellow around 60 minutes, then red around 90 minutes.")
                     .accessibilityValue(elapsed.map { "Elapsed \(WaveFormat.clock($0))" } ?? "Ready")
-                Button(actionTitle, action: action)
-                    .buttonStyle(.borderedProminent).tint(FlowStyle.button)
-                    .frame(width: 94)
+                WavePlaybackControls(actions: actions, perform: perform)
                     .padding(.top, 28)
             }
             HStack {
@@ -423,7 +446,8 @@ struct InterventionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
             HStack {
-                Label(FlowIdentity.name, image: FlowIdentity.waveImage).font(.headline).foregroundStyle(FlowStyle.accent)
+                Label { Text(FlowIdentity.name) } icon: { WaveIcon() }
+                    .font(.headline).foregroundStyle(FlowStyle.accent)
                 Spacer()
             }
             Text(model.title).font(.system(size: 30, weight: .medium, design: .rounded))

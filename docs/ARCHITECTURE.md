@@ -7,10 +7,12 @@ The delegate creates the menu bar item, popover, and application windows.
 SwiftUI renders all application views.
 The application runs with the accessory activation policy.
 `FlowStatusIcon` supplies the menu bar images from the work state.
-The application icon uses the Met public-domain Great Wave image.
+The application icon and the images in the views use the Met public-domain Great Wave image.
 The [artwork record](../artwork/README.md) identifies the source and generation command.
 The menu bar item shows only an icon.
-Ready uses a wave crest, an active Wave uses the crest inside a filled circle, and rest uses pause bars.
+Ready uses the `water.waves` system symbol.
+An active Wave shows the same symbol inside a filled circle.
+Pause uses pause bars.
 The tooltip and accessibility label give the current state.
 During a Wave or Pause, they also give elapsed time.
 
@@ -43,9 +45,13 @@ The engine emits each threshold event once per wave.
 A delayed timer emits only the most relevant intervention.
 One five-minute defer is available when the deadline fits before 120 minutes.
 A pause ends only through an explicit user action.
-The Pause display shows `Wave paused` and labels the duration as `Pause time`.
-The display explains that Continue starts a new Wave.
-The completed Wave duration stays fixed during Pause.
+
+The Pause display shows `Wave paused`, the saved `Wave time`, and the current `Pause time`.
+Continue starts work again at the saved Wave duration.
+Restart starts a new Wave at zero and keeps the previous time in History.
+The saved Wave duration stays fixed during Pause.
+Continue keeps reminder state and any defer deadline.
+Restart sets the reminder state for the new Wave.
 
 The application saves state at transitions and approximately every fifteen seconds.
 It also saves changes to the resume note.
@@ -94,7 +100,13 @@ Resume notes have a 2,000-character limit.
 History keeps up to ninety days when an entry is completed.
 A daily total allocates each completed duration by its calendar-day overlap.
 Wave counts use the completion date.
-The current segment appears separately from completed totals.
+
+A continued Wave keeps one history entry and its identifier.
+That entry records its pause intervals.
+Daily work totals do not include those intervals.
+History includes a continued Wave's previously recorded work while its new work time increases.
+The entry moves to the end of History when work stops again.
+The active Wave or Pause duration appears separately from recorded totals.
 
 A failed read preserves the existing file and displays an error.
 That process then keeps new state in memory.
@@ -103,7 +115,7 @@ These behaviors preserve local data at the storage boundary.
 
 ## Validation Boundary
 
-The repository has seventeen headless tests and a native application build.
+The repository has twenty-two headless tests and a native application build.
 The `FlowUITests` target checks lab attribution, project links, and Back navigation through the running application.
 The shared Flow scheme runs both test targets.
 `make test` and `make ci` select only `FlowTests` by default.
@@ -127,6 +139,12 @@ Core tests alone do not establish complete application acceptance.
 ## Work Actions
 
 `WaveAction` supplies the primary action label from the work state and note preparation state.
+It also supplies the playback controls, system symbols, and tooltips.
+Ready has one play control.
+Work has restart and pause controls.
+Pause has restart and play controls.
+The controls keep explicit accessibility labels.
+
 The work states are `ready`, `working`, and `pause`.
 `WaveStage` describes the reminder threshold within a wave.
 `HistoryEntry` records a completed wave or pause.

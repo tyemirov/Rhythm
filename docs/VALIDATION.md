@@ -255,3 +255,54 @@ Those two files were unchanged by this task.
 The separate document check passed.
 Language review covered the changed prose against the verified Part 1 rules and Part 2 dictionary.
 The vocabulary scan found only fixed local identities and existing repository addresses with the previous name.
+
+## Great Wave Display
+
+Validation date: September 28, 2026.
+
+The application views now show the Great Wave image in color.
+The menu bar uses `water.waves` when ready.
+An active Wave shows the same symbol inside a filled circle.
+Pause shows pause bars.
+The previous crest PDF and its generation code were removed.
+
+The initial headless tests found that the view image had no color and the menu bar used the previous shape.
+The final tests verify colors in the built application resource and different images through the real engine transitions.
+The checks use local storage and a temporary application test home.
+They open no application window and use no screen interaction.
+
+The final `make ci` run completed metadata, build, privacy, seventeen headless tests, and the cloud request checks without errors.
+It then stopped at the existing Governor drift in `.mprlab/POLICY.md` and `.mprlab/issues-md-format.md`.
+Those two files were unchanged by this task.
+The separate document check completed without errors.
+Language review covered the changed prose against the verified Part 1 rules and Part 2 dictionary.
+
+## Wave Playback Controls
+
+Validation date: September 28, 2026.
+Validation used the macOS 27.0 software environment on Apple silicon.
+
+Ready has a play control.
+Work has restart and pause controls.
+Pause has restart and play controls.
+Tooltips and accessibility labels identify each action.
+The Pause display shows Wave time and Pause time separately.
+
+Continue keeps the saved Wave duration and reminder state.
+Restart starts a new Wave at zero and keeps the previous work and pause durations in History.
+Both actions keep the resume note.
+A continued Wave keeps one history entry and its identifier.
+Its daily work totals do not include pause intervals.
+
+The initial local storage test found a Wave duration of zero after Continue.
+The final check kept a Wave duration of one hour after a Pause of 95 hours.
+The tests also covered defer deadlines, repeated reminders, Restart during work and Pause, and repeated Continue across midnight.
+They verified one Wave record, daily work totals, and zero-duration work.
+The control checks verified the available actions and Apple system symbols through real engine transitions and local storage.
+All checks used headless tests without screen interaction.
+
+The final `make ci` run completed metadata, build, privacy, twenty-two headless tests, and the cloud request checks without errors.
+It then stopped at the existing Governor drift in `.mprlab/POLICY.md` and `.mprlab/issues-md-format.md`.
+Those two files were unchanged by this task.
+The separate document check completed without errors.
+Language review covered the changed prose against the verified Part 1 rules and Part 2 dictionary.
