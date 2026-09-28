@@ -40,19 +40,20 @@ Do not create `.mprlab/AGENTS.md`. Scoped guidance belongs in `.mprlab/AGENTS.*.
 If guidance conflicts, obey `.mprlab/POLICY.md` first, then root `AGENTS.md`, then the applicable scoped guide.
 <!-- END MPRLAB-GOVERNANCE -->
 
-## Rhythm Repository Scope
+## Flow Repository Scope
 
 This repository contains a local macOS application.
 The Xcode project is the application entry point.
 The same project contains the XCTest target.
-Keep the standard Xcode layout and one shared Rhythm scheme for Run and Test.
+Keep the standard Xcode layout and one shared Flow scheme for Run and Test.
 Keep the application as the default target when Xcode opens the repository folder.
 
 - Read `docs/ARCHITECTURE.md` before application changes.
 - Read `docs/VALIDATION.md` before validation claims.
 - Use real elapsed time for every product timer.
 - Keep accelerated clocks and test controls inside test targets.
-- Keep product language centered on Rhythm, Wave, and Pause.
+- Use Flow for the application name and Wave for each work period.
+- Use Pause and Continue as ordinary control labels.
 - Keep the manual Focus service and manual pause controls as explicit product requirements.
 - Preserve the existing notification permission boundary.
 - Use `make ci` for the local repository checks.
