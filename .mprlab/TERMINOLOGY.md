@@ -105,6 +105,12 @@ Give each term one meaning. Use the same term for the same concept in all docume
 
 ## Repository Technical Nouns
 
+- `default browser`: The application that macOS uses to open website addresses.
+- `lab attribution`: The lab mark and name that identify the application producer.
+- `lab project page`: The Rhythm page that contains links to other lab projects.
+- `project catalog`: The list of lab projects on the lab website.
+- `website link`: A control that opens a website address.
+
 - `App Sandbox`: The macOS boundary that restricts application access to system resources.
 - `TestFlight`: The Apple service for application tests before public store distribution.
 - `bundle identifier`: The unique identifier of an Apple application.
@@ -122,6 +128,7 @@ Give each term one meaning. Use the same term for the same concept in all docume
 - `Xcode`: The Apple application development tool.
 - `Xcode scheme`: The shared definition of build, run, and test actions.
 - `menu bar`: The macOS surface that contains the Rhythm status item.
+- `waveform icon`: The wave-shaped symbol that identifies Rhythm in the menu bar.
 - `popover`: The temporary window below the Rhythm status item.
 - `resume note`: The user text that identifies the next work step.
 - `checkpoint`: A saved copy of the current application state.
