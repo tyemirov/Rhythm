@@ -111,9 +111,13 @@ Give each term one meaning. Use the same term for the same concept in all docume
 - `application test home`: The temporary directory that contains application files for one test.
 - `default browser`: The application that macOS uses to open website addresses.
 - `lab attribution`: The lab mark and name that identify the application producer.
-- `lab project page`: The Flow page that contains links to other lab projects.
-- `project catalog`: The list of lab projects on the lab website.
 - `website link`: A control that opens a website address.
+- `emoji`: A system text symbol that supplies the 🌊 timeline marker.
+- `timeline marker`: The symbol that shows the elapsed Wave time on the color bar.
+- `point`: The macOS logical unit for view dimensions.
+- `NSHostingView`: The AppKit view that contains a SwiftUI view.
+- `ImageRenderer`: The SwiftUI API that creates an image from a view.
+- `Vision`: The Apple framework used to find text in headless view test images.
 
 - `App Sandbox`: The macOS boundary that restricts application access to system resources.
 - `TestFlight`: The Apple service for application tests before public store distribution.
