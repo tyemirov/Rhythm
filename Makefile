@@ -11,7 +11,7 @@ MPRLAB_GATEWAY_EXECUTABLE ?= $(shell command -v mprlab-gateway)
 .NOTPARALLEL: ci
 
 help:
-	@printf '%s\n' 'make build          Build Flow locally.' 'make run            Build and open Flow.' 'make test           Execute headless core and persistence tests.' 'make lint           Check project metadata and whitespace.' 'make privacy-check  Check the built privacy manifest.' 'make cloud-plan     Check the store cloud request without provider calls.' 'make governance     Check Governor guidance.' 'make docs-check     Check technical documents.' 'make ci             Execute all local checks.'
+	@printf '%s\n' 'make build          Build Flow locally.' 'make run            Build and open Flow.' 'make test           Execute headless core, persistence, and view tests.' 'make lint           Check project metadata and whitespace.' 'make privacy-check  Check the built privacy manifest.' 'make cloud-plan     Check the store cloud request without provider calls.' 'make governance     Check Governor guidance.' 'make docs-check     Check technical documents.' 'make ci             Execute all local checks.'
 	@printf '%s\n' 'make icons          Generate the Great Wave icon assets.' 'make test-ui        Execute native application tests.'
 
 build:
