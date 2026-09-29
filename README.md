@@ -36,8 +36,10 @@ The first application start opens the popover.
 Ready shows the `water.waves` system symbol in the menu bar.
 An active Wave shows the same symbol inside a filled circle.
 Pause shows pause bars.
-The application views show the Great Wave image in color.
+The application icon and header show the Great Wave image in color.
+The timeline marker uses the 🌊 emoji.
 Playback controls use play, pause, and restart symbols.
+Each control is 28 points wide and 24 points high.
 Tooltips and accessibility labels identify each action.
 
 ## Local Commands
@@ -49,8 +51,8 @@ Execute these commands from the repository root.
 | `make build` | Build the application for local use. |
 | `make run` | Build and open the application. |
 | `make icons` | Generate the Great Wave icon assets from the retained artwork. |
-| `make test` | Execute headless core and persistence tests. |
-| `make test-ui` | Execute native tests of lab links, menu bar icons, and navigation. |
+| `make test` | Execute headless core, persistence, and view tests. |
+| `make test-ui` | Execute native tests of menu bar icons. |
 | `make lint` | Do a check of project metadata and Git whitespace. |
 | `make governance` | Do a check of Governor file consistency. |
 | `make docs-check` | Verify the official language reference and check technical prose. |
@@ -92,14 +94,12 @@ After source changes, build the application and repeat the copy.
 3. When you return, read the resume note.
 4. Select the play control, `Continue`, to continue the same Wave.
 5. Open `Today’s waves` to see completed waves and pauses.
-6. Select `More from the lab` below History to find other lab projects.
+6. Select `Marco Polo Research Lab` below History to open the lab website.
 7. Select `Quit Flow` in Settings to close the application.
 
-The lab page includes Gravity Notes, Countdown Calendar, and Hecate.
-Each project link opens its website in your default browser.
-Select `Explore all projects` to open the full lab catalog.
-Settings also contains `About Flow & the lab`.
-Back returns to the page from which you opened the lab page.
+The lab name is a website link in the main view and Settings.
+It opens `https://mprlab.com/` in your default browser.
+The website lists other lab projects.
 
 The suggested pause is five minutes.
 Every third completed wave that day has a suggested fifteen-minute pause.
@@ -128,7 +128,7 @@ Use `Control Center → Focus` to change Focus when you start or pause work.
 | `Flow/Core/` | State transitions, timing rules, and history. |
 | `Flow/Services/` | Notifications, Focus, input activity, and local storage. |
 | `Flow/Views/` | Native SwiftUI views. |
-| `FlowTests/` | Core tests. |
+| `FlowTests/` | Headless core, persistence, and view tests. |
 | `Flow.xcodeproj/` | Application, XCTest target, and shared Flow scheme. |
 | `.mprlab/` | Policy, planning rules, terminology, and issue records. |
 | `docs/` | Architecture and validation records. |
