@@ -15,36 +15,15 @@ enum FlowStyle {
 }
 
 enum LabContent {
-    struct Project: Identifiable {
-        let name: String
-        let summary: String
-        let symbol: String
-        let website: URL
-        var id: String { name }
-    }
-
     static let name = "Marco Polo Research Lab"
     static let website = URL(string: "https://mprlab.com/")!
-    static let projectsWebsite = URL(string: "https://mprlab.com/#projects")!
-    static let discoveryTitle = "More from the lab"
-    static let aboutTitle = "About \(FlowIdentity.name) & the lab"
-    static let attribution = "Free · Built by \(name)"
-    static let projects = [
-        Project(name: "Gravity Notes", summary: "Capture ideas in a simple Markdown notebook.",
-                symbol: "note.text", website: URL(string: "https://gravity.mprlab.com/")!),
-        Project(name: "Countdown Calendar", summary: "See the days ahead and plan around time off.",
-                symbol: "calendar", website: URL(string: "https://countdown.mprlab.com/")!),
-        Project(name: "Hecate", summary: "Create and play word puzzles.",
-                symbol: "puzzlepiece.extension", website: URL(string: "https://hecate.mprlab.com/")!)
-    ]
 }
 
 struct FlowPopover: View {
-    private enum Page { case home, settings, history, projects }
+    private enum Page { case home, settings, history }
     @ObservedObject var model: FlowModel
     var quit: () -> Void
     @State private var page = Page.home
-    @State private var projectsOrigin = Page.home
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -52,17 +31,16 @@ struct FlowPopover: View {
             if page == .home {
                 FlowView(model: model,
                            openHistory: { page = .history },
-                           openSettings: { page = .settings },
-                           openProjects: { showProjects(from: .home) })
+                           openSettings: { page = .settings })
                     .transition(reduceMotion ? .opacity : .move(edge: .leading).combined(with: .opacity))
             } else {
                 VStack(spacing: 0) {
                     HStack {
-                        Button { page = page == .projects ? projectsOrigin : .home } label: {
+                        Button { page = .home } label: {
                             Label("Back", systemImage: "chevron.left")
                         }
                         .buttonStyle(.plain)
-                        .accessibilityLabel(page == .projects && projectsOrigin == .settings ? "Back to Settings" : "Back to Flow")
+                        .accessibilityLabel("Back to Flow")
                         .keyboardShortcut("[", modifiers: .command)
                         Spacer()
                         if page == .settings {
@@ -70,22 +48,17 @@ struct FlowPopover: View {
                                 .font(.system(size: 18))
                                 .accessibilityLabel("Settings")
                                 .help("Settings")
-                        } else if page == .history {
+                        } else {
                             WaveIcon()
                                 .accessibilityLabel("Today’s waves")
                                 .help("Today’s waves")
-                        } else {
-                            Text(LabContent.discoveryTitle).font(.headline)
                         }
                     }.padding(20)
                     Divider()
                     if page == .settings {
-                        SettingsView(model: model, notifications: model.notifications, quit: quit,
-                                     openProjects: { showProjects(from: .settings) })
-                    } else if page == .history {
-                        WaveHistoryView(model: model)
+                        SettingsView(model: model, notifications: model.notifications, quit: quit)
                     } else {
-                        LabProjectsView()
+                        WaveHistoryView(model: model)
                     }
                 }
                 .transition(reduceMotion ? .opacity : .move(edge: .trailing).combined(with: .opacity))
@@ -98,11 +71,6 @@ struct FlowPopover: View {
         .tint(FlowStyle.accent)
         .animation(.easeInOut(duration: reduceMotion ? 0.12 : 0.24), value: page)
     }
-
-    private func showProjects(from origin: Page) {
-        projectsOrigin = origin
-        page = .projects
-    }
 }
 
 struct LabMark: View {
@@ -114,100 +82,27 @@ struct LabMark: View {
     }
 }
 
-struct LabFooter: View {
-    var openProjects: () -> Void
+struct LabWebsiteLink: View {
+    var body: some View {
+        Link(LabContent.name, destination: LabContent.website)
+            .buttonStyle(.plain)
+            .accessibilityValue(LabContent.website.absoluteString)
+            .help("Visit the lab website in your browser")
+    }
+}
 
+struct LabFooter: View {
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
             LabMark().frame(width: 32, height: 32)
             VStack(alignment: .leading, spacing: 5) {
                 Text("Built by").font(.caption).foregroundStyle(.secondary)
-                Link(LabContent.name, destination: LabContent.website)
+                LabWebsiteLink()
                     .font(.callout.weight(.medium))
-                    .accessibilityValue(LabContent.website.absoluteString)
-                    .help("Visit the lab website in your browser")
-                Button(action: openProjects) {
-                    HStack(spacing: 4) {
-                        Text(LabContent.discoveryTitle)
-                        Image(systemName: "arrow.right").accessibilityHidden(true)
-                    }
-                    .font(.caption)
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel(LabContent.discoveryTitle)
-                .padding(.top, 3)
             }
             Spacer(minLength: 0)
         }
         .foregroundStyle(FlowStyle.accent)
-    }
-}
-
-struct LabProjectsView: View {
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                HStack(spacing: 12) {
-                    LabMark().frame(width: 40, height: 40)
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(LabContent.name).font(.headline)
-                        Text("Applied research. Practical software.")
-                            .font(.caption).foregroundStyle(.secondary)
-                    }
-                }
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Useful tools. Built with care.")
-                        .font(.system(.title2, design: .rounded).weight(.medium))
-                    Text("Flow is free, built to help you find a comfortable pattern of work and rest. Explore more tools from the same lab.")
-                        .font(.callout).foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                VStack(spacing: 8) {
-                    ForEach(LabContent.projects) { project in
-                        Link(destination: project.website) {
-                            HStack(alignment: .top, spacing: 12) {
-                                Image(systemName: project.symbol)
-                                    .font(.title3).frame(width: 24)
-                                    .foregroundStyle(FlowStyle.accent)
-                                    .accessibilityHidden(true)
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(project.name).font(.headline)
-                                        .foregroundStyle(.primary)
-                                    Text(project.summary).font(.caption)
-                                        .foregroundStyle(.secondary)
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
-                                Spacer(minLength: 0)
-                                Image(systemName: "arrow.up.right")
-                                    .font(.caption).foregroundStyle(.secondary)
-                                    .accessibilityHidden(true)
-                            }
-                            .padding(12)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(FlowStyle.accent.opacity(0.07), in: RoundedRectangle(cornerRadius: 10))
-                            .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        .accessibilityLabel(project.name)
-                        .accessibilityValue(project.website.absoluteString)
-                        .accessibilityHint("\(project.summary) Opens in your browser.")
-                        .help("Open \(project.name) in your browser")
-                    }
-                }
-                Link(destination: LabContent.projectsWebsite) {
-                    Label("Explore all projects", systemImage: "arrow.up.right")
-                }
-                .accessibilityLabel("Explore all projects")
-                .accessibilityValue(LabContent.projectsWebsite.absoluteString)
-                .foregroundStyle(FlowStyle.accent)
-                .help("Explore the full catalog in your browser")
-                Divider()
-                Text(LabContent.attribution).font(.caption).foregroundStyle(.secondary)
-            }
-            .padding(20)
-        }
-        .frame(height: 500)
-        .tint(FlowStyle.accent)
     }
 }
 
@@ -226,7 +121,6 @@ struct FlowView: View {
     @ObservedObject var model: FlowModel
     var openHistory: () -> Void
     var openSettings: () -> Void
-    var openProjects: () -> Void
     @State private var preparingPause = false
 
     private var actions: [WaveAction] {
@@ -309,7 +203,7 @@ struct FlowView: View {
                 Label(error, systemImage: "exclamationmark.triangle").font(.caption).foregroundStyle(.orange)
             }
             Divider()
-            LabFooter(openProjects: openProjects)
+            LabFooter()
         }
         .onChange(of: model.engine.mode) { _ in preparingPause = false }
         .padding(24)
@@ -331,18 +225,28 @@ struct WavePlaybackControls: View {
     var perform: (WaveAction) -> Void
 
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 4) {
             ForEach(actions, id: \.self) { action in
                 Button { perform(action) } label: {
                     Image(systemName: action.symbol)
-                        .font(.system(size: 15, weight: .semibold))
-                        .frame(width: 22, height: 24)
+                        .font(.system(size: 12, weight: .semibold))
                 }
-                .buttonStyle(.borderedProminent).tint(FlowStyle.button)
+                .buttonStyle(WavePlaybackButtonStyle())
                 .help(action.help)
                 .accessibilityLabel(action.rawValue)
             }
         }.fixedSize()
+    }
+}
+
+struct WavePlaybackButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(width: 28, height: 24)
+            .foregroundStyle(.white)
+            .background(FlowStyle.button.opacity(configuration.isPressed ? 0.75 : 1),
+                        in: RoundedRectangle(cornerRadius: 5))
+            .contentShape(RoundedRectangle(cornerRadius: 5))
     }
 }
 
@@ -383,7 +287,9 @@ struct WaveTimeline: View {
                 }
                 if let elapsed {
                     let x = inset + width * min(max(elapsed / 7200, 0), 1)
-                    WaveIcon()
+                    Text("🌊")
+                        .font(.system(size: 24))
+                        .frame(width: 26, height: 26)
                         .position(x: x, y: 38)
                     Text(WaveFormat.clock(elapsed))
                         .font(.system(size: 11, weight: .medium)).monospacedDigit()
@@ -476,7 +382,6 @@ struct SettingsView: View {
     @ObservedObject var model: FlowModel
     @ObservedObject var notifications: NotificationService
     var quit: () -> Void
-    var openProjects: () -> Void
 
     var body: some View {
         Form {
@@ -524,7 +429,7 @@ struct SettingsView: View {
                     .font(.caption).foregroundStyle(.secondary)
             }
             Section("Application") {
-                Button(LabContent.aboutTitle, action: openProjects)
+                LabWebsiteLink()
                 Button("Quit Flow", action: quit)
             }
             Section("On this Mac") {
