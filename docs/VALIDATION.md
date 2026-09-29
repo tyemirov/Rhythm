@@ -306,3 +306,31 @@ It then stopped at the existing Governor drift in `.mprlab/POLICY.md` and `.mprl
 Those two files were unchanged by this task.
 The separate document check completed without errors.
 Language review covered the changed prose against the verified Part 1 rules and Part 2 dictionary.
+
+## Timeline Emoji And Direct Lab Link
+
+Validation date: September 28, 2026.
+Validation used the macOS 27.0 software environment on Apple silicon.
+
+The timeline marker now uses the system 🌊 emoji.
+The application icon, header, and History keep the Great Wave artwork.
+Each playback control is 28 points wide and 24 points high.
+The controls keep their actions, tooltips, and accessibility labels.
+
+The footer contains the lab mark, `Built by`, and the lab name.
+The lab name is a direct website link in the footer and Settings.
+The website address is `https://mprlab.com/`.
+The featured project page, its routes, and its obsolete tests were removed.
+
+The initial headless view tests found the larger controls and the extra footer button.
+The timeline marker did not match the required emoji.
+The final checks measure the controls through views without an attached window.
+They compare the timeline marker pixels to the system emoji and find footer text through Vision.
+The built resource checks still verify the Great Wave artwork colors and application icon.
+These tests use no screen interaction and open no application window or browser.
+
+The final `make ci` run completed metadata, build, privacy, twenty-five headless tests, and the cloud request checks without errors.
+It then stopped at the existing Governor drift in `.mprlab/POLICY.md` and `.mprlab/issues-md-format.md`.
+Those two files were unchanged by this task.
+The separate document check completed without errors.
+Language review covered the changed prose against the verified Part 1 rules and Part 2 dictionary.

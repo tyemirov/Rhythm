@@ -7,10 +7,10 @@ Flow keeps resume notes, Wave History, and preferences on your Mac.
 The application has no account, analytics, or cloud synchronization.
 It does not send this information to a server.
 
-Flow includes links to other Marco Polo Research Lab projects.
-These links open websites in your default browser when you select them.
-Flow sends no notes, History, preferences, or activity measurements with these links.
-Each website controls its own data practices.
+Flow includes a link to the Marco Polo Research Lab website.
+This link opens the website in your default browser when you select it.
+Flow sends no notes, History, preferences, or activity measurements with this link.
+The website controls its own data practices.
 
 Flow keeps up to 90 days of completed History.
 Each resume note can contain up to 2,000 characters.
